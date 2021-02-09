@@ -8,13 +8,8 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.2.153")
-cmd_list = list()
-cmd_list.append("cal n")
-cmd_list.append("cal r")
-cmd_list.append("cal e")
-cmd_list.append("cal b")
-cmd_list.append("info")
+version = str("1.2.154")
+cmd_list = ["cal n", "cal r", "cal e", "cal b", "info"]
 
 def start():
     try:
@@ -108,49 +103,36 @@ def mode_switch():
         print("Error code: 108")
 
 def file_filter_list_dir():
-    global path
-    global file_count
-    global file_count_total
-    global file_name_list
+    global path_abs, file_count, file_count_total, file_name_abs_list
     try:
-        path = "."
+        path_abs = os.path.abspath(".")
         file_count = 0
         file_count_total = 0
-        file_name_list = list()
-        # Global var: file_count, file_count_total, file_name_list
-        for file in os.listdir(path):
-            file_path_name = os.path.join(path, file)
-            if os.path.isfile(file_path_name):
-                file_name = file
-                file_size = os.path.getsize(file_name) 
+        file_name_abs_list = list()
+        for file in os.listdir(path_abs):
+            if os.path.isfile(os.path.join(path_abs, file)):
+                file_name_abs = os.path.join(path_abs, file)
+                file_size = os.path.getsize(file_name_abs) 
                 # For filtering unnecessary files.
                 if file_size != 0:
-                    if str(os.path.splitext(file_name)[1]) == ".py":
+                    file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
+                    file_ext_exclude = [".py", ".exe"]
+                    if str(os.path.split(file_name_abs)[1]).lower() in file_name_exclude:
                         pass
-                    elif str(file_name) == ".gitattributes":
-                        pass
-                    elif str(file_name) == ".gitignore":
-                        pass
-                    elif str(os.path.splitext(file_name)[1]) == ".exe":
-                        pass
-                    elif str(file_name) == "desktop.ini":
-                        pass
-                    elif str(file_name) == "Thumbs.db":
+                    elif str(os.path.splitext(os.path.split(file_name_abs)[1])[1]).lower() in file_ext_exclude:
                         pass
                     else:
                         file_count_total += 1
-                        file_name_list.append(file_name)
+                        file_name_abs_list.append(file_name_abs)
     except:
         print("Error code: 100")
 
 def display():
-    global file_size_dis
-    global result
-    global time_stamp
+    global file_size_dis, result, time_stamp
     try:
         print("{}/{}".format(file_count, file_count_total))
-        print("Path: %s" % os.path.abspath(path))
-        print("File: %s" % file_name)
+        print("Path: %s" % os.path.split(file_name_abs)[0])
+        print("File: %s" % os.path.split(file_name_abs)[1])
         if file_size_class == 1:  
             file_size_dis = str("{:d} Bytes".format(file_size))
             print("Size: %s" % file_size_dis)
@@ -177,7 +159,7 @@ def display():
             print("Size: %s" % file_size_dis)
         # Get file name and size for display before calculating CRC-32.
         time_start = time.time() # [1]
-        result = crc_core(file_name) # [2]
+        result = crc_core(file_name_abs) # [2]
         timeEnd = time.time() # [3]
         print("Elapsed time: {:.2f} s".format(timeEnd - time_start)) # [4]
         print("CRC-32: %08X" % result) # [5]
@@ -214,12 +196,12 @@ def display():
     except:
         print("Error code: 103")
 
-def crc_core(file_name):
+def crc_core(file_name_abs):
     try:
         block_size = 1024 * 64 # Def size of buffer block.
         block_count = 0 # Processed Blocks
         block_count_total = math.ceil(file_size / block_size) # All Blocks
-        with open(file_name, "rb") as file:
+        with open(file_name_abs, "rb") as file:
             str = file.read(block_size)
             crc = 0
             while len(str) != 0:
@@ -299,7 +281,7 @@ def file_size_filter(file_size):
 def outputer_txt():
     try:
         writer = codecs.open(txt_name + ".txt", "a","utf-8")
-        writer.write("File: %s\n" % file_name)
+        writer.write("File: %s\n" % os.path.split(file_name_abs)[1])
         writer.write("Size: %s\n" % file_size_dis)
         writer.write("CRC-32: %08X\n" % result)
         if file_count == file_count_total:
@@ -314,7 +296,7 @@ def outputer_txt():
 def outputer_csv():
     try:
         csv_list = list()
-        csv_list.append(str('"%s"' % file_name)) # column1
+        csv_list.append(str('"%s"' % os.path.split(file_name_abs)[1])) # column1
         csv_list.append(str("%s" % file_size_dis)) # column2
         csv_list.append(str("CRC-32: %08X" % result)) # column3
         csv_list.append(str("%s" % time_stamp)) # column4
@@ -361,14 +343,14 @@ while controller: # Mean: while controller != 0
     ### Traversal Start ###
     #######################
     file_filter_list_dir()
-    for file_name in file_name_list:
-        file_size = os.path.getsize(file_name) 
+    for file_name_abs in file_name_abs_list:
+        file_size = os.path.getsize(file_name_abs) 
         # For file_size_filter(), display() and crc_core().
         file_size_class = file_size_filter(file_size)
         #full_path = os.path.abspath(path)
         file_count += 1
         display()
-        # Global var: file_name, file_size, file_size_class, full_path
+        # Global var: file_name_abs, file_size, file_size_class
     ##################################################################
     ### Next: display() -> crc_core() -> display() -> outputer_?() ###
     ##################################################################

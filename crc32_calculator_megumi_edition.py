@@ -21,7 +21,7 @@ def start():
         print("Error code: 104")  
 
 def menu():
-    cmdList = ["cal n", "cal r", "cal e", "cal b", "info"]
+    cmd_list = ["cal n", "cal r", "cal e", "cal b", "info"]
     #print("                           ........:::..                   ")
     #print("                         ....:::::::::...                  ")
     print("               ############################################ ")
@@ -42,12 +42,12 @@ def menu():
     print("#           ..        :=*++*#+.  .::  :**++-++:.          # ")
     print("#          ...        .=+=-=***-: . .:**+=+-==.           # Use the rapid command below to start a task.")
     print("#          ..          :=:--======:::.--.====:            # ")
-    print("#         ..            ==-=-::.--::..:...::.             # %s: Calculate and display only." % cmdList[0])
-    print("#        -:.   .    .:=****+:...::.....   :==:            # %s: Create report with readability." % cmdList[1])
-    print("#        +*=:-+=:-=*#******=.......       =+**+:          # %s: Create report for Microsoft Excel." % cmdList[2])
-    print("#       -*******##*********=.   ::..     :+*****=         # %s: Both create." % cmdList[3])
+    print("#         ..            ==-=-::.--::..:...::.             # %s: Calculate and display only." % cmd_list[0])
+    print("#        -:.   .    .:=****+:...::.....   :==:            # %s: Create report with readability." % cmd_list[1])
+    print("#        +*=:-+=:-=*#******=.......       =+**+:          # %s: Create report for Microsoft Excel." % cmd_list[2])
+    print("#       -*******##*********=.   ::..     :+*****=         # %s: Both create." % cmd_list[3])
     print("#       +******##########***-::-+=-=:.: :+++*****         # ")
-    print("#       -*****##########**+*+=:-+:+..-+=*+++*****         # %s: View details." % cmdList[4])
+    print("#       -*****##########**+*+=:-+:+..-+=*+++*****         # %s: View details." % cmd_list[4])
     print("#                                                         # ")
     #print("         .=+*******+++***++++:-=..=:=*+++++*****+          ")
     #print("                      ***+++:--=.=-==**+++******=          ")
@@ -67,136 +67,136 @@ def menu():
     #print("         -:=+**###*##**===:--:----==*+#**=+=****+          ")
     #print("          .=+*+**#*#**=--:-.:  ::-++*=##+::=+***+-         ")
     #print("          :=+=*+**##*+--: :.:   ..=**-+#+::--*+++=         ")
-    modeSwitch()
+    mode_switch()
 
 def info():
     print("Testing...\nPress enter or type any to return menu.")
     input()
     return start()
 
-def modeSwitch():                                                                     
+def mode_switch():                                                                     
     try:
-        userInputStartOri = input("########################################################### Type here: ")
-        global mainMission
-        userInputStart = userInputStartOri.strip()
-        if userInputStart == "cal n":
-            mainMission = 600
+        user_input_menu_ori = input("########################################################### Type here: ")
+        global main_mission
+        user_input_menu = user_input_menu_ori.strip()
+        if user_input_menu == "cal n":
+            main_mission = 600
             return
-        elif userInputStart == "cal r":
-            mainMission = 700
+        elif user_input_menu == "cal r":
+            main_mission = 700
             return
-        elif userInputStart == "cal e":
-            mainMission = 800
+        elif user_input_menu == "cal e":
+            main_mission = 800
             return
-        elif userInputStart == "cal b":
-            mainMission = 900
+        elif user_input_menu == "cal b":
+            main_mission = 900
             return
-        elif userInputStart == "info":
+        elif user_input_menu == "info":
             info()
-        elif userInputStart == "":
+        elif user_input_menu == "":
             print("########################################################### Not entered.")
-            return modeSwitch()
+            return mode_switch()
         else:
             print("########################################################### Command is not defined.")
-            return modeSwitch()
+            return mode_switch()
     except:
         print("Error code: 108")
 
-def fileFilterListdir():
+def file_filter_list_dir():
     global path
-    global fileCount
-    global fileCountTotal
-    global fileNameList
+    global file_count
+    global file_count_total
+    global file_name_list
     try:
         path = "."
-        fileCount = 0
-        fileCountTotal = 0
-        fileNameList = list()
-        # Global var: fileCount, fileCountTotal, fileNameList
+        file_count = 0
+        file_count_total = 0
+        file_name_list = list()
+        # Global var: file_count, file_count_total, file_name_list
         for file in os.listdir(path):
-            filePathName = os.path.join(path, file)
-            if os.path.isfile(filePathName):
-                fileName = file
-                fileSize = os.path.getsize(fileName) 
+            file_path_name = os.path.join(path, file)
+            if os.path.isfile(file_path_name):
+                file_name = file
+                file_size = os.path.getsize(file_name) 
                 # For filtering unnecessary files.
-                if fileSize != 0:
-                    if str(os.path.splitext(fileName)[1]) == ".py":
+                if file_size != 0:
+                    if str(os.path.splitext(file_name)[1]) == ".py":
                         pass
-                    elif str(os.path.splitext(fileName)[0]) == ".gitattributes":
+                    elif str(os.path.splitext(file_name)[0]) == ".gitattributes":
                         pass
-                    elif str(os.path.splitext(fileName)[0]) == ".gitignore":
+                    elif str(os.path.splitext(file_name)[0]) == ".gitignore":
                         pass
-                    elif str(os.path.splitext(fileName)[1]) == ".exe":
+                    elif str(os.path.splitext(file_name)[1]) == ".exe":
                         pass
-                    elif str(os.path.splitext(fileName)[1]) == ".db":
+                    elif str(os.path.splitext(file_name)[1]) == ".db":
                         pass
                     else:
-                        fileCountTotal += 1
-                        fileNameList.append(fileName)
+                        file_count_total += 1
+                        file_name_list.append(file_name)
     except:
         print("Error code: 100")
 
-def crcDisplay():
-    global fileSizeDis
+def display():
+    global file_size_dis
     global result
-    global timeStamp
+    global time_stamp
     try:
-        print("{}/{}".format(fileCount, fileCountTotal))
-        print("File: %s" % fileName)
-        if fileSizeClass == 1:  
-            fileSizeDis = str("Size: {:d} Bytes".format(fileSize))
-            print(fileSizeDis)
-        elif fileSizeClass == 2:
-            fileSizeDis = str("Size: {:d} Bytes ({:d} KiB)".format(
-                fileSize,
-                fileSize >> 10
+        print("{}/{}".format(file_count, file_count_total))
+        print("File: %s" % file_name)
+        if file_size_class == 1:  
+            file_size_dis = str("{:d} Bytes".format(file_size))
+            print("Size: %s" % file_size_dis)
+        elif file_size_class == 2:
+            file_size_dis = str("{:d} Bytes ({:d} KiB)".format(
+                file_size,
+                file_size >> 10
                 )
             )
-            print(fileSizeDis)
-        elif fileSizeClass == 3:
-            fileSizeDis = str("Size: {:d} Bytes ({:d} MiB)".format(
-                fileSize,
-                fileSize >> 20
+            print("Size: %s" % file_size_dis)
+        elif file_size_class == 3:
+            file_size_dis = str("{:d} Bytes ({:d} MiB)".format(
+                file_size,
+                file_size >> 20
                 )
             )
-            print(fileSizeDis)
-        elif fileSizeClass == 4:
-            fileSizeDis = str("Size: {:d} Bytes ({:.2f} GiB)".format(
-                fileSize,
-                fileSize / pow(1024, 3)
+            print("Size: %s" % file_size_dis)
+        elif file_size_class == 4:
+            file_size_dis = str("{:d} Bytes ({:.2f} GiB)".format(
+                file_size,
+                file_size / pow(1024, 3)
                 )
             )
-            print(fileSizeDis)
+            print("Size: %s" % file_size_dis)
         # Get file name and size for display before calculating CRC-32.
-        timeStart = time.time() # [1]
-        result = crcCore(fileName) # [2]
+        time_start = time.time() # [1]
+        result = crc_core(file_name) # [2]
         timeEnd = time.time() # [3]
-        print("Elapsed time: {:.2f} s".format(timeEnd - timeStart)) # [4]
-        print("CRC32: %08X" % result) # [5]
-        timeStamp = time.strftime("Timestamp: %Y-%m-%dT%H:%M:%SZ", time.gmtime(timeEnd)) # [6]
-        print("%s\n" % timeStamp) # [7]
+        print("Elapsed time: {:.2f} s".format(timeEnd - time_start)) # [4]
+        print("CRC-32: %08X" % result) # [5]
+        time_stamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(timeEnd)) # [6]
+        print("Timestamp: %s\n" % time_stamp) # [7]
         # [1] Get beginning time.
         # [2] Get result of CRC-32.
         # [3] Get ending time.
         # [4] Display elapsed time.
         # [5] Displayresult of CRC-32.
-        # [6] Creat timestamp by [3].
-        # [7] Display timestamp.
+        # [6] Creat time_stamp by [3].
+        # [7] Display time_stamp.
         ########################
         ### Output Workspace ###
         ########################
         try:
-            if mainMission == 600:
+            if main_mission == 600:
                 return
-            elif mainMission == 700:
-                outputerRead()
+            elif main_mission == 700:
+                outputer_txt()
                 return
-            elif mainMission == 800:
-                outputerExcel()
+            elif main_mission == 800:
+                outputer_csv()
                 return
-            elif mainMission == 900:
-                outputerRead()
-                outputerExcel()
+            elif main_mission == 900:
+                outputer_txt()
+                outputer_csv()
                 return
         except:
             print("Error code: 105")
@@ -206,66 +206,66 @@ def crcDisplay():
     except:
         print("Error code: 103")
 
-def crcCore(fileName):
+def crc_core(file_name):
     try:
-        blockSize = 1024 * 64 # Def size of buffer block.
-        blockCount = 0 # Processed Blocks
-        blockCountTotal = math.ceil(fileSize / blockSize) # All Blocks
-        with open(fileName, "rb") as file:
-            str = file.read(blockSize)
+        block_size = 1024 * 64 # Def size of buffer block.
+        block_count = 0 # Processed Blocks
+        block_count_total = math.ceil(file_size / block_size) # All Blocks
+        with open(file_name, "rb") as file:
+            str = file.read(block_size)
             crc = 0
             while len(str) != 0:
-                if blockCount % 1377 == 1:
-                    timeSpeedReference = time.perf_counter_ns()
+                if block_count % 1377 == 1:
+                    time_speed_reference = time.perf_counter_ns()
                 else:
                     pass
                 crc = binascii.crc32(str, crc) & 0xffffffff
-                str = file.read(blockSize)
-                blockCount += 1
-                if fileSizeClass == 1:
-                    if blockCount % 1 == 0 or blockCount == blockCountTotal: 
+                str = file.read(block_size)
+                block_count += 1
+                if file_size_class == 1:
+                    if block_count % 1 == 0 or block_count == block_count_total: 
                         print("\rProcessed: {:d}/{:d} Bytes ({:.2f}%)".format(
-                            fileSize,
-                            fileSize,
-                            blockCount/blockCountTotal*100
+                            file_size,
+                            file_size,
+                            block_count / block_count_total * 100
                             ), end=""
                         )
-                elif fileSizeClass == 2:
-                    if blockCount % 1 == 0 or blockCount == blockCountTotal: 
+                elif file_size_class == 2:
+                    if block_count % 1 == 0 or block_count == block_count_total: 
                         print("\rProcessed: {:d}/{:d} KiB ({:.2f}%)".format(
-                            fileSize >> 10,
-                            fileSize >> 10,
-                            blockCount/blockCountTotal*100
+                            file_size >> 10,
+                            file_size >> 10,
+                            block_count / block_count_total * 100
                             ), end=""
                         )
-                elif fileSizeClass == 3:
-                    if blockCount % 1377 == 0 or blockCount == blockCountTotal: 
+                elif file_size_class == 3:
+                    if block_count % 1377 == 0 or block_count == block_count_total: 
                         print("\rProcessed: {:d}/{:d} MiB ({:.2f}%)".format(
-                            blockCount >> 4,
-                            fileSize >> 20,
-                            # Mean: blockCount * 1024 * 64 >> 20
-                            # Mean: fileSize / 1024 / 1024
+                            block_count >> 4,
+                            file_size >> 20,
+                            # Mean: block_count * 1024 * 64 >> 20
+                            # Mean: file_size / 1024 / 1024
                             # Keywords: bitwise operation, arithmetic shift
-                            blockCount/blockCountTotal*100
+                            block_count / block_count_total * 100
                             ), end=""
                         )
-                elif fileSizeClass == 4:
-                    if blockCount % 1377 == 0 or blockCount == blockCountTotal:
-                        timeSpeedNow = time.perf_counter_ns()
-                        timeSpeedDelta = timeSpeedNow - timeSpeedReference
-                        if blockCount == blockCountTotal:
+                elif file_size_class == 4:
+                    if block_count % 1377 == 0 or block_count == block_count_total:
+                        time_speed_now = time.perf_counter_ns()
+                        time_speed_delta = time_speed_now - time_speed_reference
+                        if block_count == block_count_total:
                             print("\rProcessed: {:.2f}/{:.2f} GiB ({:.2f}%) Speed: - MiB/s".format(
-                                blockCount / pow(2, 14),
-                                fileSize / pow(2, 30),
-                                blockCount/blockCountTotal*100
+                                block_count / pow(2, 14),
+                                file_size / pow(2, 30),
+                                block_count / block_count_total * 100
                                 ), end=""
                             )
                         else:  
                             print("\rProcessed: {:.2f}/{:.2f} GiB ({:.2f}%) Speed: {:.0f} MiB/s".format(
-                                blockCount / pow(2, 14),
-                                fileSize / pow(2, 30),
-                                blockCount/blockCountTotal*100,
-                                1377 * pow(2, -4) * pow(10, 9) / timeSpeedDelta
+                                block_count / pow(2, 14),
+                                file_size / pow(2, 30),
+                                block_count / block_count_total * 100,
+                                1377 * pow(2, -4) * pow(10, 9) / time_speed_delta
                                 ), end=""
                             )
             print(" ")
@@ -274,60 +274,60 @@ def crcCore(fileName):
         print("Error code: 101")
         return 0
 
-def fileSizeFilter(fileSize):
+def file_size_filter(file_size):
     try:
-        if fileSize < 1024: # Byte
-            fileSizeClass = 1
-        elif fileSize < 1048576: # KiB
-            fileSizeClass = 2
-        elif fileSize < 1073741824: # MiB
-            fileSizeClass = 3
-        elif fileSize < 1099511627776: # GiB
-            fileSizeClass = 4
-        return fileSizeClass
+        if file_size < 1024: # Byte
+            file_size_class = 1
+        elif file_size < 1048576: # KiB
+            file_size_class = 2
+        elif file_size < 1073741824: # MiB
+            file_size_class = 3
+        elif file_size < 1099511627776: # GiB
+            file_size_class = 4
+        return file_size_class
     except:
         print("Error code: 102")
 
-def outputerRead():
+def outputer_txt():
     try:
-        txtOutput = codecs.open(txtNameRead + ".txt", "a","utf-8")
-        txtOutput.write("File: %s\n" % fileName)
-        txtOutput.write("%s\n" % fileSizeDis)
-        txtOutput.write("CRC32: %08X\n" % result)
-        if fileCount == fileCountTotal:
-            txtOutput.write("%s" % timeStamp)
+        writer = codecs.open(txt_name + ".txt", "a","utf-8")
+        writer.write("File: %s\n" % file_name)
+        writer.write("Size: %s\n" % file_size_dis)
+        writer.write("CRC-32: %08X\n" % result)
+        if file_count == file_count_total:
+            writer.write("Timestamp: %s" % time_stamp)
         else:
-            txtOutput.write("%s\n\n" % timeStamp)
-        txtOutput.close()
+            writer.write("Timestamp: %s\n\n" % time_stamp)
+        writer.close()
         return
     except:
         print("Error code: 106")
 
-def outputerExcel():
+def outputer_csv():
     try:
-        OutputStr1 = str("File: %s" % fileName)
-        OutputStr2 = str("%s" % fileSizeDis)
-        OutputStr3 = str("CRC32: %08X" % result)
-        OutputStr4 = str("%s" % timeStamp)
-        OutputStrList = [OutputStr1, OutputStr2, OutputStr3, OutputStr4]
-        txtOutput = codecs.open(txtNameExcel + ".txt", "a","utf-8")
-        if fileCountTotal == fileCountTotal:
-            txtOutput.write("{:s},{:s},{:s},{:s}\n".format(
-                OutputStrList[0],
-                OutputStrList[1],
-                OutputStrList[2],
-                OutputStrList[3]
+        csv_column1 = str('"%s"' % file_name)
+        csv_column2 = str("%s" % file_size_dis)
+        csv_column3 = str("CRC-32: %08X" % result)
+        csv_column4 = str("%s" % time_stamp)
+        csv_list = [csv_column1, csv_column2, csv_column3, csv_column4]
+        writer = codecs.open(csv_name + ".csv", "a","utf-8")
+        if file_count != file_count_total:
+            writer.write("{:s},{:s},{:s},{:s}\n".format(
+                csv_list[0],
+                csv_list[1],
+                csv_list[2],
+                csv_list[3]
                 )
             )
         else:
-                txtOutput.write("{:s},{:s},{:s},{:s}\n\n".format(
-                OutputStrList[0],
-                OutputStrList[1],
-                OutputStrList[2],
-                OutputStrList[3]
+                writer.write("{:s},{:s},{:s},{:s}".format(
+                csv_list[0],
+                csv_list[1],
+                csv_list[2],
+                csv_list[3]
                 )
             )
-        txtOutput.close()
+        writer.close()
         return
     except:
         print("Error code: 107")
@@ -339,41 +339,41 @@ controller = time.time()
 while controller: # Mean: while controller != 0
     start()
 ####################################
-### Next: menu() -> modeSwitch() ###
+### Next: menu() -> mode_switch() ###
 ####################################
 
     #####################################
     ### Output Files Naming Workspace ###
     #####################################
-    txtName = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime(time.time()))
-    txtNameRead = str("%sR" % txtName)
-    txtNameExcel = str("%sE" % txtName)
+    iso_8601 = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime(time.time()))
+    txt_name = str("%sR" % iso_8601)
+    csv_name = str("%sE" % iso_8601)
 
     #######################
     ### Traversal Start ###
     #######################
-    fileFilterListdir()
-    for fileName in fileNameList:
-        fileSize = os.path.getsize(fileName) 
-        # For fileSizeFilter(), crcDisplay() and crcCore().
-        fileSizeClass = fileSizeFilter(fileSize)
-        fileCount += 1
-        crcDisplay()
-        # Global var: fileName, fileSize, fileSizeClass
+    file_filter_list_dir()
+    for file_name in file_name_list:
+        file_size = os.path.getsize(file_name) 
+        # For file_size_filter(), display() and crc_core().
+        file_size_class = file_size_filter(file_size)
+        file_count += 1
+        display()
+        # Global var: file_name, file_size, file_size_class
     ######################################################################
-    ### Next: crcDisplay() -> crcCore() -> crcDisplay() -> outputer?() ###
+    ### Next: display() -> crc_core() -> display() -> outputer_?() ###
     ######################################################################
 
-    if fileCount == 0:
+    if file_count == 0:
         print("No file in this folder. Use the command below to do something or exit by any other press.")
     else:
         print("Task is completed. Use the command below to do something or exit by any other press.")
     print("")
     print("menu: Return to menu.")
     print("")
-    userinputEndOri = input("Type here: ")
-    userinputEnd = userinputEndOri.strip()
-    if userinputEnd == "menu":
+    user_input_end_ori = input("Type here: ")
+    user_input_end = user_input_end_ori.strip()
+    if user_input_end == "menu":
         pass
     else:
         sys.exit()

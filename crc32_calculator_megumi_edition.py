@@ -8,7 +8,10 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.2.154")
+version = str("1.3.0")
+
+file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
+file_ext_exclude = [".py", ".exe"]
 
 def start():
     try:
@@ -76,19 +79,40 @@ def info():
 def mode_switch():                                                                     
     try:
         user_input_menu_ori = input("########################################################### Type here: ")
-        global main_mission
+        global scan_mission
+        global output_mission
         user_input_menu = user_input_menu_ori.strip()
         if user_input_menu == "cal n":
-            main_mission = 600
+            scan_mission = 1000
+            output_mission = 600
             return
         elif user_input_menu == "cal r":
-            main_mission = 700
+            scan_mission = 1000
+            output_mission = 700
             return
         elif user_input_menu == "cal e":
-            main_mission = 800
+            scan_mission = 1000
+            output_mission = 800
             return
         elif user_input_menu == "cal b":
-            main_mission = 900
+            scan_mission = 1000
+            output_mission = 900
+            return
+        elif user_input_menu == "cal an":
+            scan_mission = 2000
+            output_mission = 600
+            return
+        elif user_input_menu == "cal ar":
+            scan_mission = 2000
+            output_mission = 700
+            return
+        elif user_input_menu == "cal ae":
+            scan_mission = 2000
+            output_mission = 800
+            return
+        elif user_input_menu == "cal ab":
+            scan_mission = 2000
+            output_mission = 900
             return
         elif user_input_menu == "info":
             info()
@@ -102,29 +126,50 @@ def mode_switch():
         print("Error code: 108")
 
 def file_filter_list_dir():
-    global path_abs, file_count, file_count_total, file_name_abs_list
+    global file_count, file_count_total, file_name_list
     try:
-        path_abs = os.path.abspath(".")
+        path = "."
         file_count = 0
         file_count_total = 0
-        file_name_abs_list = list()
-        for file in os.listdir(path_abs):
-            if os.path.isfile(os.path.join(path_abs, file)):
-                file_name_abs = os.path.join(path_abs, file)
-                file_size = os.path.getsize(file_name_abs) 
+        file_name_list = list()
+        for file in os.listdir(path):
+            if os.path.isfile(os.path.join(path, file)):
+                file_name = file
+                file_size = os.path.getsize(file_name) 
                 # For filtering unnecessary files.
                 if file_size != 0:
-                    file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
-                    file_ext_exclude = [".py", ".exe"]
-                    if str(os.path.split(file_name_abs)[1]).lower() in file_name_exclude:
+                    if str(file_name).lower() in file_name_exclude:
                         pass
-                    elif str(os.path.splitext(os.path.split(file_name_abs)[1])[1]).lower() in file_ext_exclude:
+                    elif str(os.path.splitext(file_name)[1]).lower() in file_ext_exclude:
                         pass
                     else:
                         file_count_total += 1
-                        file_name_abs_list.append(file_name_abs)
+                        file_name_list.append(file_name)
     except:
         print("Error code: 100")
+
+def file_filter_walk():
+    global file_count, file_count_total, file_name_list
+    try:
+        path = "."
+        file_count = 0
+        file_count_total = 0
+        file_name_list = list()
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                file_name = os.path.join(root, file)
+                file_size = os.path.getsize(file_name) 
+                # For filtering unnecessary files.
+                if file_size != 0:
+                    if str(os.path.split(file_name)[1]).lower() in file_name_exclude:
+                        pass
+                    elif str(os.path.splitext(os.path.split(file_name)[1])[1]).lower() in file_ext_exclude:
+                        pass
+                    else:
+                        file_count_total += 1
+                        file_name_list.append(file_name)
+    except:
+        print("Error code: 109")
 
 def display():
     global file_size_dis, result, time_stamp
@@ -175,15 +220,15 @@ def display():
         ### Output Workspace ###
         ########################
         try:
-            if main_mission == 600:
+            if output_mission == 600:
                 return
-            elif main_mission == 700:
+            elif output_mission == 700:
                 outputer_txt()
                 return
-            elif main_mission == 800:
+            elif output_mission == 800:
                 outputer_csv()
                 return
-            elif main_mission == 900:
+            elif output_mission == 900:
                 outputer_txt()
                 outputer_csv()
                 return
@@ -280,6 +325,7 @@ def file_size_filter(file_size):
 def outputer_txt():
     try:
         writer = codecs.open(txt_name + ".txt", "a","utf-8")
+        writer.write("Path: %s\n" % os.path.split(file_name_abs)[0])
         writer.write("File: %s\n" % os.path.split(file_name_abs)[1])
         writer.write("Size: %s\n" % file_size_dis)
         writer.write("CRC-32: %08X\n" % result)
@@ -295,17 +341,19 @@ def outputer_txt():
 def outputer_csv():
     try:
         csv_list = list()
-        csv_list.append(str('"%s"' % os.path.split(file_name_abs)[1])) # column1
-        csv_list.append(str("%s" % file_size_dis)) # column2
-        csv_list.append(str("CRC-32: %08X" % result)) # column3
-        csv_list.append(str("%s" % time_stamp)) # column4
+        csv_list.append(str('"%s"' % os.path.split(file_name_abs)[0])) # column1
+        csv_list.append(str('"%s"' % os.path.split(file_name_abs)[1])) # column2
+        csv_list.append(str("%s" % file_size_dis)) # column3
+        csv_list.append(str("CRC-32: %08X" % result)) # column4
+        csv_list.append(str("%s" % time_stamp)) # column5
         writer = codecs.open(csv_name + ".csv", "a","utf-8")
         if file_count != file_count_total:
-            writer.write("{:s},{:s},{:s},{:s}\n".format(
+            writer.write("{:s},{:s},{:s},{:s},{:s}\n".format(
                 csv_list[0],
                 csv_list[1],
                 csv_list[2],
-                csv_list[3]
+                csv_list[3],
+                csv_list[4]
                 )
             )
         else:
@@ -341,12 +389,15 @@ while controller: # Mean: while controller != 0
     #######################
     ### Traversal Start ###
     #######################
-    file_filter_list_dir()
-    for file_name_abs in file_name_abs_list:
-        file_size = os.path.getsize(file_name_abs) 
+    if scan_mission == 1000:
+        file_filter_list_dir()
+    elif scan_mission == 2000:
+        file_filter_walk()
+    for file_name in file_name_list:
+        file_name_abs = os.path.abspath(file_name)
+        file_size = os.path.getsize(file_name_abs)
         # For file_size_filter(), display() and crc_core().
         file_size_class = file_size_filter(file_size)
-        #full_path = os.path.abspath(path)
         file_count += 1
         display()
         # Global var: file_name_abs, file_size, file_size_class

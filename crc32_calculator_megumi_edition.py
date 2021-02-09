@@ -8,7 +8,13 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.2.15")
+version = str("1.2.151")
+cmd_list = list()
+cmd_list.append("cal n")
+cmd_list.append("cal r")
+cmd_list.append("cal e")
+cmd_list.append("cal b")
+cmd_list.append("info")
 
 def start():
     try:
@@ -21,7 +27,6 @@ def start():
         print("Error code: 104")  
 
 def menu():
-    cmd_list = ["cal n", "cal r", "cal e", "cal b", "info"]
     #print("                           ........:::..                   ")
     #print("                         ....:::::::::...                  ")
     print("               ############################################ ")

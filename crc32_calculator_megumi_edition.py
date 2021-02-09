@@ -8,6 +8,8 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
+version = str("1.2.15")
+
 def start():
     try:
         try: input = raw_input
@@ -32,7 +34,7 @@ def menu():
     print("#                     -+=::-*###*++==-=::--=:               ")
     print("#                     ..:-=***##++*=+=+---=-+-              CRC-32 Calculator Megumi Edition")
     print("#                 ..  .:-+##==**+==+==-+=+*--+              ")
-    print("#                ..:::-+**#+=---==:-+***+**=-=.             Version 1.2.15 (2021)")
+    print("#                ..:::-+**#+=---==:-+***+**=-=.             Version %s (2021)" % version)
     print("#               ..::. +#***=+**:...:=++-**+*--:             ")
     print("#              .....  =*#*++=++.    .--.=+*#=+..            ")
     print("#             .....   :+**#-.::...  ....++*#+*-.          # ")

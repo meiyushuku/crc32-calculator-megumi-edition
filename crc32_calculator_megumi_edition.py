@@ -8,7 +8,7 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.2.151")
+version = str("1.2.152")
 cmd_list = list()
 cmd_list.append("cal n")
 cmd_list.append("cal r")
@@ -310,11 +310,11 @@ def outputer_txt():
 
 def outputer_csv():
     try:
-        csv_column1 = str('"%s"' % file_name)
-        csv_column2 = str("%s" % file_size_dis)
-        csv_column3 = str("CRC-32: %08X" % result)
-        csv_column4 = str("%s" % time_stamp)
-        csv_list = [csv_column1, csv_column2, csv_column3, csv_column4]
+        csv_list = list()
+        csv_list.append(str('"%s"' % file_name)) # column1
+        csv_list.append(str("%s" % file_size_dis)) # column2
+        csv_list.append(str("CRC-32: %08X" % result)) # column3
+        csv_list.append(str("%s" % time_stamp)) # column4
         writer = codecs.open(csv_name + ".csv", "a","utf-8")
         if file_count != file_count_total:
             writer.write("{:s},{:s},{:s},{:s}\n".format(

@@ -7,9 +7,9 @@ import csv
 import codecs # [6]
 import sys
 
-def crc32(fileName):
+def crc32(fileNameInput):
     try:
-        fileSize = os.path.getsize(fileName) 
+        fileSize = os.path.getsize(fileNameInput) 
         blockSize = 1024 * 64 # Def size of buffer block.
         blockCount = 0 # Processed Blocks
         blockCountTotal = math.ceil(fileSize / blockSize) # All Blocks
@@ -50,10 +50,13 @@ def crc32(fileName):
         print("compute file crc failed!")
         return 0
 
-print("")
+path1 = "."
+abpath = os.path.abspath(path1)
+print(abpath)
 fileName = "(画集・設定資料集) [ゆずソフト] 喫茶ステラと死神の蝶 オフィシャルビジュアルファンブック_976217A5.zip"
-print("%s" % fileName)
-result = crc32(fileName)
+fileNameInput = os.path.join(abpath, fileName)
+print("%s" % fileNameInput)
+result = crc32(fileNameInput)
 print("CRC32: %08X" % result)
 print("")
 

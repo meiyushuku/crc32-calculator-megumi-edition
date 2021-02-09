@@ -9,7 +9,6 @@ import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
 version = str("1.2.154")
-cmd_list = ["cal n", "cal r", "cal e", "cal b", "info"]
 
 def start():
     try:
@@ -42,12 +41,12 @@ def menu():
     print("#           ..        :=*++*#+.  .::  :**++-++:.          # ")
     print("#          ...        .=+=-=***-: . .:**+=+-==.           # Use the rapid command below to start a task.")
     print("#          ..          :=:--======:::.--.====:            # ")
-    print("#         ..            ==-=-::.--::..:...::.             # %s: Calculate and display only." % cmd_list[0])
-    print("#        -:.   .    .:=****+:...::.....   :==:            # %s: Create report with readability." % cmd_list[1])
-    print("#        +*=:-+=:-=*#******=.......       =+**+:          # %s: Create report for Microsoft Excel." % cmd_list[2])
-    print("#       -*******##*********=.   ::..     :+*****=         # %s: Both create." % cmd_list[3])
+    print("#         ..            ==-=-::.--::..:...::.             # cal n: Calculate and display only.")
+    print("#        -:.   .    .:=****+:...::.....   :==:            # cal r: Create report with readability.")
+    print("#        +*=:-+=:-=*#******=.......       =+**+:          # cal e: Create report for Microsoft Excel.")
+    print("#       -*******##*********=.   ::..     :+*****=         # cal b: Both create.")
     print("#       +******##########***-::-+=-=:.: :+++*****         # ")
-    print("#       -*****##########**+*+=:-+:+..-+=*+++*****         # %s: View details." % cmd_list[4])
+    print("#       -*****##########**+*+=:-+:+..-+=*+++*****         # info: View details.")
     print("#                                                         # ")
     #print("         .=+*******+++***++++:-=..=:=*+++++*****+          ")
     #print("                      ***+++:--=.=-==**+++******=          ")
@@ -336,8 +335,8 @@ while controller: # Mean: while controller != 0
     ### Output Files Naming Workspace ###
     #####################################
     iso_8601 = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime(time.time()))
-    txt_name = str("%sR" % iso_8601)
-    csv_name = str("%sE" % iso_8601)
+    txt_name = str("%s" % iso_8601)
+    csv_name = str("%s" % iso_8601)
 
     #######################
     ### Traversal Start ###

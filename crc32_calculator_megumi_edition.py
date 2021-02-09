@@ -120,6 +120,10 @@ def fileFilterListdir():
                 if fileSize != 0:
                     if str(os.path.splitext(fileName)[1]) == ".py":
                         pass
+                    elif str(os.path.splitext(fileName)[0]) == ".gitattributes":
+                        pass
+                    elif str(os.path.splitext(fileName)[0]) == ".gitignore":
+                        pass
                     elif str(os.path.splitext(fileName)[1]) == ".exe":
                         pass
                     elif str(os.path.splitext(fileName)[1]) == ".db":

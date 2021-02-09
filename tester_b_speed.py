@@ -52,6 +52,7 @@ def crc32(fileNameInput):
 
 path1 = "."
 abpath = os.path.abspath(path1)
+
 print(abpath)
 fileName = "(画集・設定資料集) [ゆずソフト] 喫茶ステラと死神の蝶 オフィシャルビジュアルファンブック_976217A5.zip"
 fileNameInput = os.path.join(abpath, fileName)

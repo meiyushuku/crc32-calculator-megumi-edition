@@ -344,7 +344,7 @@ controller = time.time()
 while controller: # Mean: while controller != 0
     start()
 ####################################
-### Next: menu() -> mode_switch() ###
+### Next: menu() -> mode_switch() ##
 ####################################
 
     #####################################
@@ -365,9 +365,9 @@ while controller: # Mean: while controller != 0
         file_count += 1
         display()
         # Global var: file_name, file_size, file_size_class
-    ######################################################################
+    ##################################################################
     ### Next: display() -> crc_core() -> display() -> outputer_?() ###
-    ######################################################################
+    ##################################################################
 
     if file_count == 0:
         print("No file in this folder. Use the command below to do something or exit by any other press.")

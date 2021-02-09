@@ -8,7 +8,7 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.2.152")
+version = str("1.2.153")
 cmd_list = list()
 cmd_list.append("cal n")
 cmd_list.append("cal r")
@@ -127,13 +127,15 @@ def file_filter_list_dir():
                 if file_size != 0:
                     if str(os.path.splitext(file_name)[1]) == ".py":
                         pass
-                    elif str(os.path.splitext(file_name)[0]) == ".gitattributes":
+                    elif str(file_name) == ".gitattributes":
                         pass
-                    elif str(os.path.splitext(file_name)[0]) == ".gitignore":
+                    elif str(file_name) == ".gitignore":
                         pass
                     elif str(os.path.splitext(file_name)[1]) == ".exe":
                         pass
-                    elif str(os.path.splitext(file_name)[1]) == ".db":
+                    elif str(file_name) == "desktop.ini":
+                        pass
+                    elif str(file_name) == "Thumbs.db":
                         pass
                     else:
                         file_count_total += 1
@@ -147,6 +149,7 @@ def display():
     global time_stamp
     try:
         print("{}/{}".format(file_count, file_count_total))
+        print("Path: %s" % os.path.abspath(path))
         print("File: %s" % file_name)
         if file_size_class == 1:  
             file_size_dis = str("{:d} Bytes".format(file_size))
@@ -184,7 +187,7 @@ def display():
         # [2] Get result of CRC-32.
         # [3] Get ending time.
         # [4] Display elapsed time.
-        # [5] Displayresult of CRC-32.
+        # [5] Display result of CRC-32.
         # [6] Creat time_stamp by [3].
         # [7] Display time_stamp.
         ########################
@@ -362,9 +365,10 @@ while controller: # Mean: while controller != 0
         file_size = os.path.getsize(file_name) 
         # For file_size_filter(), display() and crc_core().
         file_size_class = file_size_filter(file_size)
+        #full_path = os.path.abspath(path)
         file_count += 1
         display()
-        # Global var: file_name, file_size, file_size_class
+        # Global var: file_name, file_size, file_size_class, full_path
     ##################################################################
     ### Next: display() -> crc_core() -> display() -> outputer_?() ###
     ##################################################################

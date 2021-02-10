@@ -8,7 +8,7 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.3.02")
+version = str("1.3.03")
 
 file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
 file_ext_exclude = [".py", ".exe"]
@@ -356,11 +356,12 @@ def outputer_csv():
                 )
             )
         else:
-                writer.write("{:s},{:s},{:s},{:s}".format(
+                writer.write("{:s},{:s},{:s},{:s},{:s}".format(
                 csv_list[0],
                 csv_list[1],
                 csv_list[2],
-                csv_list[3]
+                csv_list[3],
+                csv_list[4]
                 )
             )
         writer.close()

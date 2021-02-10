@@ -8,7 +8,7 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.3.01")
+version = str("1.3.02")
 
 file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
 file_ext_exclude = [".py", ".exe"]
@@ -79,8 +79,7 @@ def info():
 def mode_switch():                                                                     
     try:
         user_input_menu_ori = input("########################################################### Type here: ")
-        global scan_mission
-        global output_mission
+        global scan_mission, output_mission
         user_input_menu = user_input_menu_ori.strip()
         if user_input_menu == "cal n":
             scan_mission = 1000

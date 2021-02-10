@@ -8,7 +8,7 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.3.03")
+version = str("1.3.04")
 
 file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
 file_ext_exclude = [".py", ".exe"]
@@ -44,12 +44,12 @@ def menu():
     print("#           ..        :=*++*#+.  .::  :**++-++:.          # ")
     print("#          ...        .=+=-=***-: . .:**+=+-==.           # Use the rapid command below to start a task.")
     print("#          ..          :=:--======:::.--.====:            # ")
-    print("#         ..            ==-=-::.--::..:...::.             # cal n: Calculate and display only.")
-    print("#        -:.   .    .:=****+:...::.....   :==:            # cal r: Create report with readability.")
-    print("#        +*=:-+=:-=*#******=.......       =+**+:          # cal e: Create report for Microsoft Excel.")
-    print("#       -*******##*********=.   ::..     :+*****=         # cal b: Both create.")
+    print("#         ..            ==-=-::.--::..:...::.             # cal -v: Vanish mode.")
+    print("#        -:.   .    .:=****+:...::.....   :==:            # cal -r: Create report as txt file with readability.")
+    print("#        +*=:-+=:-=*#******=.......       =+**+:          # cal -e: Create report as csv file for Excel.")
+    print("#       -*******##*********=.   ::..     :+*****=         # cal -b: Both create.")
     print("#       +******##########***-::-+=-=:.: :+++*****         # ")
-    print("#       -*****##########**+*+=:-+:+..-+=*+++*****         # info: View details.")
+    print("#       -*****##########**+*+=:-+:+..-+=*+++*****         # help: View details.")
     print("#                                                         # ")
     #print("         .=+*******+++***++++:-=..=:=*+++++*****+          ")
     #print("                      ***+++:--=.=-==**+++******=          ")
@@ -81,39 +81,39 @@ def mode_switch():
         user_input_menu_ori = input("########################################################### Type here: ")
         global scan_mission, output_mission
         user_input_menu = user_input_menu_ori.strip()
-        if user_input_menu == "cal n":
+        if user_input_menu == "cal -v":
             scan_mission = 1000
             output_mission = 600
             return
-        elif user_input_menu == "cal r":
+        elif user_input_menu == "cal -r":
             scan_mission = 1000
             output_mission = 700
             return
-        elif user_input_menu == "cal e":
+        elif user_input_menu == "cal -e":
             scan_mission = 1000
             output_mission = 800
             return
-        elif user_input_menu == "cal b":
+        elif user_input_menu == "cal -b":
             scan_mission = 1000
             output_mission = 900
             return
-        elif user_input_menu == "cal an":
+        elif user_input_menu == "cal --walk-v":
             scan_mission = 2000
             output_mission = 600
             return
-        elif user_input_menu == "cal ar":
+        elif user_input_menu == "cal --walk-r":
             scan_mission = 2000
             output_mission = 700
             return
-        elif user_input_menu == "cal ae":
+        elif user_input_menu == "cal --walk-e":
             scan_mission = 2000
             output_mission = 800
             return
-        elif user_input_menu == "cal ab":
+        elif user_input_menu == "cal --walk-b":
             scan_mission = 2000
             output_mission = 900
             return
-        elif user_input_menu == "info":
+        elif user_input_menu == "help":
             info()
         elif user_input_menu == "":
             print("########################################################### Not entered.")

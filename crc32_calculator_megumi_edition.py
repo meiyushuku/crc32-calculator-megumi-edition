@@ -8,11 +8,11 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.3.04")
+version = str("1.3.05")
 
 file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
-file_ext_exclude = [".py", ".exe"]
-folder_exclude = [".\\.git\\", ".\\crc_report\\"]
+file_ext_exclude = [".py"]
+# For file_filter_list_dir() and file_filter_walk().
 
 def start():
     try:
@@ -330,7 +330,10 @@ def file_size_filter(file_size):
 
 def outputer_txt():
     try:
-        writer = codecs.open(txt_name + ".txt", "a","utf-8")
+        report_folder = ".\\crc_report"
+        if not os.path.isdir(report_folder):
+            os.mkdir(report_folder)
+        writer = codecs.open(".\\crc_report\\" + txt_name + ".txt", "a","utf-8")
         writer.write("Path: %s\n" % os.path.split(file_name_abs)[0])
         writer.write("File: %s\n" % os.path.split(file_name_abs)[1])
         writer.write("Size: %s\n" % file_size_dis)
@@ -352,7 +355,10 @@ def outputer_csv():
         csv_list.append(str('"%s"' % file_size_dis)) # column3
         csv_list.append(str('"CRC-32: %08X"' % result)) # column4
         csv_list.append(str('"%s"' % time_stamp)) # column5
-        writer = codecs.open(csv_name + ".csv", "a","utf-8")
+        report_folder = ".\\crc_report"
+        if not os.path.isdir(report_folder):
+            os.mkdir(report_folder)
+        writer = codecs.open(".\\crc_report\\" + csv_name + ".csv", "a","utf-8")
         if file_count != file_count_total:
             writer.write("{:s},{:s},{:s},{:s},{:s}\n".format(
                 csv_list[0],

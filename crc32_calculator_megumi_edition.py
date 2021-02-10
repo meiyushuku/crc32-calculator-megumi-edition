@@ -83,36 +83,36 @@ def mode_switch():
         global scan_mission, output_mission
         user_input_menu = user_input_menu_ori.strip()
         if user_input_menu == "cal -v":
-            scan_mission = 1000
-            output_mission = 600
+            scan_mission = 100
+            output_mission = 60
             return
         elif user_input_menu == "cal -r":
-            scan_mission = 1000
-            output_mission = 700
+            scan_mission = 100
+            output_mission = 70
             return
         elif user_input_menu == "cal -e":
-            scan_mission = 1000
-            output_mission = 800
+            scan_mission = 100
+            output_mission = 80
             return
         elif user_input_menu == "cal -b":
-            scan_mission = 1000
-            output_mission = 900
+            scan_mission = 100
+            output_mission = 90
             return
         elif user_input_menu == "cal --walk-v":
-            scan_mission = 2000
-            output_mission = 600
+            scan_mission = 200
+            output_mission = 60
             return
         elif user_input_menu == "cal --walk-r":
-            scan_mission = 2000
-            output_mission = 700
+            scan_mission = 200
+            output_mission = 70
             return
         elif user_input_menu == "cal --walk-e":
-            scan_mission = 2000
-            output_mission = 800
+            scan_mission = 200
+            output_mission = 80
             return
         elif user_input_menu == "cal --walk-b":
-            scan_mission = 2000
-            output_mission = 900
+            scan_mission = 200
+            output_mission = 90
             return
         elif user_input_menu == "help":
             info()
@@ -159,7 +159,7 @@ def file_filter_walk():
             root_compare = root + "\\"
             if not root_compare.find(".\\.git\\"): # Found
                 pass
-            elif not root_compare.find(".\\crc_report\\"):
+            elif "crc_report\\" in root_compare:
                 pass
             else:
                 for file in files:
@@ -226,15 +226,15 @@ def display():
         ### Output Workspace ###
         ########################
         try:
-            if output_mission == 600:
+            if output_mission == 60:
                 return
-            elif output_mission == 700:
+            elif output_mission == 70:
                 outputer_txt()
                 return
-            elif output_mission == 800:
+            elif output_mission == 80:
                 outputer_csv()
                 return
-            elif output_mission == 900:
+            elif output_mission == 90:
                 outputer_txt()
                 outputer_csv()
                 return
@@ -402,9 +402,9 @@ while controller: # Mean: while controller != 0
     #######################
     ### Traversal Start ###
     #######################
-    if scan_mission == 1000:
+    if scan_mission == 100:
         file_filter_list_dir()
-    elif scan_mission == 2000:
+    elif scan_mission == 200:
         file_filter_walk()
     for file_name in file_name_list:
         file_name_abs = os.path.abspath(file_name)

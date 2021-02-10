@@ -8,7 +8,7 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.3.0")
+version = str("1.3.01")
 
 file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
 file_ext_exclude = [".py", ".exe"]
@@ -21,7 +21,7 @@ def start():
         print("########################################################### Scanning...")
         print("")
     except:
-        print("Error code: 104")  
+        print("Error code: 104")
 
 def menu():
     #print("                           ........:::..                   ")
@@ -203,7 +203,7 @@ def display():
             print("Size: %s" % file_size_dis)
         # Get file name and size for display before calculating CRC-32.
         time_start = time.time() # [1]
-        result = crc_core(file_name_abs) # [2]
+        result = crc_core(file_name) # [2]
         timeEnd = time.time() # [3]
         print("Elapsed time: {:.2f} s".format(timeEnd - time_start)) # [4]
         print("CRC-32: %08X" % result) # [5]
@@ -240,12 +240,12 @@ def display():
     except:
         print("Error code: 103")
 
-def crc_core(file_name_abs):
+def crc_core(file_name):
     try:
         block_size = 1024 * 64 # Def size of buffer block.
         block_count = 0 # Processed Blocks
         block_count_total = math.ceil(file_size / block_size) # All Blocks
-        with open(file_name_abs, "rb") as file:
+        with open(file_name, "rb") as file:
             str = file.read(block_size)
             crc = 0
             while len(str) != 0:
@@ -343,9 +343,9 @@ def outputer_csv():
         csv_list = list()
         csv_list.append(str('"%s"' % os.path.split(file_name_abs)[0])) # column1
         csv_list.append(str('"%s"' % os.path.split(file_name_abs)[1])) # column2
-        csv_list.append(str("%s" % file_size_dis)) # column3
-        csv_list.append(str("CRC-32: %08X" % result)) # column4
-        csv_list.append(str("%s" % time_stamp)) # column5
+        csv_list.append(str('"%s"' % file_size_dis)) # column3
+        csv_list.append(str('"CRC-32: %08X"' % result)) # column4
+        csv_list.append(str('"%s"' % time_stamp)) # column5
         writer = codecs.open(csv_name + ".csv", "a","utf-8")
         if file_count != file_count_total:
             writer.write("{:s},{:s},{:s},{:s},{:s}\n".format(
@@ -395,7 +395,7 @@ while controller: # Mean: while controller != 0
         file_filter_walk()
     for file_name in file_name_list:
         file_name_abs = os.path.abspath(file_name)
-        file_size = os.path.getsize(file_name_abs)
+        file_size = os.path.getsize(file_name)
         # For file_size_filter(), display() and crc_core().
         file_size_class = file_size_filter(file_size)
         file_count += 1

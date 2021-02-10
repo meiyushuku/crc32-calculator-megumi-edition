@@ -12,6 +12,7 @@ version = str("1.3.04")
 
 file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
 file_ext_exclude = [".py", ".exe"]
+folder_exclude = [".\\.git\\", ".\\crc_report\\"]
 
 def start():
     try:
@@ -155,18 +156,24 @@ def file_filter_walk():
         file_count_total = 0
         file_name_list = list()
         for root, dirs, files in os.walk(path):
-            for file in files:
-                file_name = os.path.join(root, file)
-                file_size = os.path.getsize(file_name) 
-                # For filtering unnecessary files.
-                if file_size != 0:
-                    if str(os.path.split(file_name)[1]).lower() in file_name_exclude:
-                        pass
-                    elif str(os.path.splitext(os.path.split(file_name)[1])[1]).lower() in file_ext_exclude:
-                        pass
-                    else:
-                        file_count_total += 1
-                        file_name_list.append(file_name)
+            root_compare = root + "\\"
+            if not root_compare.find(".\\.git\\"): # Found
+                pass
+            elif not root_compare.find(".\\crc_report\\"):
+                pass
+            else:
+                for file in files:
+                    file_name = os.path.join(root, file)
+                    file_size = os.path.getsize(file_name) 
+                    # For filtering unnecessary files.
+                    if file_size != 0:
+                        if str(os.path.split(file_name)[1]).lower() in file_name_exclude:
+                            pass
+                        elif str(os.path.splitext(os.path.split(file_name)[1])[1]).lower() in file_ext_exclude:
+                            pass
+                        else:
+                            file_count_total += 1
+                            file_name_list.append(file_name)
     except:
         print("Error code: 109")
 

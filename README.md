@@ -14,10 +14,6 @@ I. Current directory only
 II. Tree traversal (including all sub folders)
 <br>
 <br>
-Output modes
-<br>
-1. Vanish mode: the calculation result of CRC-32 are only displayed on screen.
-<br>
 2. Text file: create report as text file with readability.
 <br>
 3. CSV file: create report as CSV file for Microsoft Excel.

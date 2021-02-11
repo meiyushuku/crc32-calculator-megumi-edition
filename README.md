@@ -1,4 +1,8 @@
-This is a tool that helps users know the CRC-32 value of  files by batch in current directory or walking the tree.
+<img src="https://i.imgur.com/XEB6vDQ.png">
+<br>
+<img src="https://i.imgur.com/Zuwyeao.png">
+<br>
+This is a tool that helps users know the CRC-32 value of files by batch from current directory or through a directory tree.
 <br>
 Users can also add custom file extension exclusions and choose create the report file or not.
 <br>
@@ -14,6 +18,8 @@ II. Tree traversal (including all sub folders)
 <br>
 <br>
 Output modes
+<br>
+1. Vanish mode: the calculation result of CRC-32 are only displayed on screen.
 <br>
 2. Text file: create report as text file with readability.
 <br>
@@ -37,7 +43,7 @@ Folder: .git, crc_report
 Extension: .py
 <br>
 <br>
-You can also add custom file extension exclusions with a command.
+Users can also add custom file extension exclusions with a command.
 <br>
 <br>
 Command list:

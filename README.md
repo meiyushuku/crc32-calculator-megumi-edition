@@ -8,7 +8,7 @@ Execution modes below are provided:
 <br>
 Scan modes
 <br>
-1. Current directory only
+I. Current directory only
 <br>
 II. Tree traversal (including all sub folders)
 <br>

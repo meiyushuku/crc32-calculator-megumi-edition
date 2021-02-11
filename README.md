@@ -22,7 +22,7 @@ Files and folders below have been excluded by default:
 2. Folder: .git, crc_report
 3. Extension: .py
 
-You can also add custom file extension exclusions with a command.
+Users can also add custom file extension exclusions with a command.
 
 Command list:
 

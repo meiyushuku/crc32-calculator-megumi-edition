@@ -161,7 +161,7 @@ def mode_switch():
             return
         elif user_input_menu == "help":
             info_page1()
-        elif user_input_menu == "add -ex":
+        #elif user_input_menu == "add -ex":
             #custom_ext_exclude()
         elif user_input_menu == "show -ex":
             print("########################################################### %s" % file_ext_exclude)

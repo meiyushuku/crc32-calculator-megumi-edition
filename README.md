@@ -41,7 +41,7 @@ Folder: .git, crc_report
 Extension: .py
 <br>
 <br>
-You can also add custom file extension exclusions with a command.
+Users can also add custom file extension exclusions with a command.
 <br>
 <br>
 Command list:

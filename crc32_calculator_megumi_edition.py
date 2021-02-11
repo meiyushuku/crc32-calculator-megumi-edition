@@ -8,7 +8,7 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.3.05")
+version = str("1.4.0")
 
 file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
 file_ext_exclude = [".py"]
@@ -91,13 +91,9 @@ def info_page1():
     print("")
     print("Files and folders below have been excluded by default:")
     print("")
-    print("desktop.ini")
-    print("thumbs.db")
-    print(".gitattributes")
-    print(".gitignore")
-    print(".py")
-    print(".git")
-    print("crc_report")
+    print("File: desktop.ini, Thumbs.db, .gitattributes, .gitignore")
+    print("Folder: .git, crc_report")
+    print("Extension: .py")
     print("")
     print("You can also add custom file extension exclusions with a command.")
     print("")
@@ -116,7 +112,9 @@ def info_page2():
     print("cal --walk-t: Scan with mode II and output with mode 2.")
     print("cal --walk-c: Scan with mode II and output with mode 3.")
     print("cal --walk-b: Scan with mode II and output with mode 4.")
-    print("add -ex: Add custom file extension exclusions.")
+    print("ex -add: Add custom file extension exclusions.")
+    print("ex -rm: Remove custom file extension exclusions.")
+    print("ex -show: Show custom file extension exclusions.")
     print("")
     input("Menu >>> ")
     print("")
@@ -161,10 +159,23 @@ def mode_switch():
             return
         elif user_input_menu == "help":
             info_page1()
-        #elif user_input_menu == "add -ex":
-            #custom_ext_exclude()
-        elif user_input_menu == "show -ex":
-            print("########################################################### %s" % file_ext_exclude)
+        elif user_input_menu == "ex -add":
+            print("###########################################################")
+            print("########################################################### Add one at a time.")
+            print("########################################################### Type menu to return menu after finishing the addition.")
+            print("###########################################################")
+            custom_ext_exclude_adder()
+        elif user_input_menu == "ex -rm":
+            print("###########################################################")
+            print("########################################################### Remove one at a time.")
+            print("########################################################### Type menu to return menu after finishing the removal.")
+            print("###########################################################")
+            custom_ext_exclude_remover()
+        elif user_input_menu == "ex -show":
+            print("###########################################################")
+            for file_ext_dis in file_ext_exclude:
+                print("########################################################### %s" % file_ext_dis)
+            print("###########################################################")
             return mode_switch()
         elif user_input_menu == "":
             print("########################################################### Not entered.")
@@ -174,6 +185,66 @@ def mode_switch():
             return mode_switch()
     except:
         print("Error code: 108")
+
+def custom_ext_exclude_adder():
+    user_input_exclude_ori = input("########################################################### Type here >>> ")
+    user_input_exclude = user_input_exclude_ori.strip()
+    if user_input_exclude == "":
+        print("########################################################### No entered.")
+        return custom_ext_exclude_adder()
+    elif user_input_exclude == "menu":
+        print("###########################################################")
+        print("########################################################### Returned to menu.")
+        print("###########################################################")
+        return mode_switch()
+    elif user_input_exclude == "." or user_input_exclude[0] != "." or user_input_exclude.count(".") > 1:
+        print("########################################################### Invalid extension!")
+        return custom_ext_exclude_adder()
+    elif user_input_exclude.lower() in file_ext_exclude:
+        print("########################################################### Have been added!")
+        print("###########################################################")
+        for file_ext_dis in file_ext_exclude:
+            print("########################################################### %s" % file_ext_dis)
+        print("###########################################################")
+        return custom_ext_exclude_adder()
+    else:
+        file_ext_exclude.append(user_input_exclude.lower())
+        print("########################################################### Added successful!")
+        print("###########################################################")
+        for file_ext_dis in file_ext_exclude:
+            print("########################################################### %s" % file_ext_dis)
+        print("###########################################################")
+        return custom_ext_exclude_adder()
+
+def custom_ext_exclude_remover():
+    user_input_exclude_ori = input("########################################################### Type here >>> ")
+    user_input_exclude = user_input_exclude_ori.strip()
+    if user_input_exclude == "":
+        print("########################################################### No entered.")
+        return custom_ext_exclude_remover()
+    elif user_input_exclude == "menu":
+        print("###########################################################")
+        print("########################################################### Returned to menu.")
+        print("###########################################################")
+        return mode_switch()
+    elif user_input_exclude == "." or user_input_exclude[0] != "." or user_input_exclude.count(".") > 1:
+        print("########################################################### Invalid extension!")
+        return custom_ext_exclude_remover()
+    elif user_input_exclude.lower() not in file_ext_exclude:
+        print("########################################################### Not found!")
+        print("###########################################################")
+        for file_ext_dis in file_ext_exclude:
+            print("########################################################### %s" % file_ext_dis)
+        print("###########################################################")
+        return custom_ext_exclude_remover()
+    else:
+        file_ext_exclude.remove(user_input_exclude.lower())
+        print("########################################################### Removed successful!")
+        print("###########################################################")
+        for file_ext_dis in file_ext_exclude:
+            print("########################################################### %s" % file_ext_dis)
+        print("###########################################################")
+        return custom_ext_exclude_remover()
 
 def file_filter_list_dir():
     global file_count, file_count_total, file_name_list

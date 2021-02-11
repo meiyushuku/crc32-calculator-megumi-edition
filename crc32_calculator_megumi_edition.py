@@ -8,8 +8,8 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.4.01")
-
+version = "1.4.02"
+hashes = "###########################################################"
 file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
 file_ext_exclude = [".py"]
 # For file_filter_list_dir(), file_filter_walk().
@@ -19,7 +19,7 @@ def start():
         try: input = raw_input
         except NameError: pass
         menu()
-        print("########################################################### Scanning...")
+        print("%s Scanning..." % hashes)
         print("")
     except:
         print("Error code: 104")
@@ -125,7 +125,7 @@ def info_page2():
 
 def mode_switch():                                                                     
     try:
-        user_input_menu_ori = input("########################################################### Type here >>> ")
+        user_input_menu_ori = input("%s Type here >>> " % hashes)
         global scan_mission, output_mission
         user_input_menu = user_input_menu_ori.strip()
         if user_input_menu == "cal -v":
@@ -163,90 +163,90 @@ def mode_switch():
         elif user_input_menu == "help":
             info_page1()
         elif user_input_menu == "ex -add":
-            print("###########################################################")
-            print("########################################################### Add one at a time.")
-            print("########################################################### Type menu to return menu after finishing the addition.")
-            print("###########################################################")
+            print("%s" % hashes)
+            print("%s Add one at a time." % hashes)
+            print("%s Type menu to return menu after finishing the addition." % hashes)
+            print("%s" % hashes)
             custom_ext_exclude_adder()
         elif user_input_menu == "ex -rm":
-            print("###########################################################")
-            print("########################################################### Remove one at a time.")
-            print("########################################################### Type menu to return menu after finishing the removal.")
-            print("###########################################################")
+            print("%s" % hashes)
+            print("%s Remove one at a time." % hashes)
+            print("%s Type menu to return menu after finishing the removal." % hashes)
+            print("%s" % hashes)
             custom_ext_exclude_remover()
         elif user_input_menu == "ex -show":
-            print("###########################################################")
+            print("%s" % hashes)
             for file_ext_dis in file_ext_exclude:
-                print("########################################################### %s" % file_ext_dis)
-            print("###########################################################")
+                print("{:s} {:s}".format(hashes, file_ext_dis))
+            print("%s" % hashes)
             return mode_switch()
         elif user_input_menu == "":
-            print("########################################################### Not entered.")
+            print("%s Not entered." % hashes)
             return mode_switch()
         else:
-            print("########################################################### Command is not defined.")
+            print("%s Command is not defined." % hashes)
             return mode_switch()
     except:
         print("Error code: 108")
 
 def custom_ext_exclude_adder():
-    user_input_exclude_ori = input("########################################################### Type here >>> ")
+    user_input_exclude_ori = input("%s Type here >>> " % hashes)
     user_input_exclude = user_input_exclude_ori.strip()
     if user_input_exclude == "":
-        print("########################################################### No entered.")
+        print("%s No entered." % hashes)
         return custom_ext_exclude_adder()
     elif user_input_exclude == "menu":
-        print("###########################################################")
-        print("########################################################### Returned to menu.")
-        print("###########################################################")
+        print("%s" % hashes)
+        print("%s Returned to menu." % hashes)
+        print("%s" % hashes)
         return mode_switch()
     elif user_input_exclude == "." or user_input_exclude[0] != "." or user_input_exclude.count(".") > 1:
-        print("########################################################### Invalid extension!")
+        print("%s Invalid extension!" % hashes)
         return custom_ext_exclude_adder()
     elif user_input_exclude.lower() in file_ext_exclude:
-        print("########################################################### Have been added!")
-        print("###########################################################")
+        print("%s Have been added!" % hashes)
+        print("%s" % hashes)
         for file_ext_dis in file_ext_exclude:
-            print("########################################################### %s" % file_ext_dis)
-        print("###########################################################")
+            print("{:s} {:s}".format(hashes, file_ext_dis))
+        print("%s" % hashes)
         return custom_ext_exclude_adder()
     else:
         file_ext_exclude.append(user_input_exclude.lower())
-        print("########################################################### Added successful!")
-        print("###########################################################")
+        print("%s Added successful!" % hashes)
+        print("%s" % hashes)
         for file_ext_dis in file_ext_exclude:
-            print("########################################################### %s" % file_ext_dis)
-        print("###########################################################")
+            print("{:s} {:s}".format(hashes, file_ext_dis))
+        print("%s" % hashes)
         return custom_ext_exclude_adder()
 
 def custom_ext_exclude_remover():
-    user_input_exclude_ori = input("########################################################### Type here >>> ")
+    user_input_exclude_ori = input("%s Type here >>> " % hashes)
     user_input_exclude = user_input_exclude_ori.strip()
     if user_input_exclude == "":
-        print("########################################################### No entered.")
+        print("%s No entered." % hashes)
         return custom_ext_exclude_remover()
     elif user_input_exclude == "menu":
-        print("###########################################################")
-        print("########################################################### Returned to menu.")
-        print("###########################################################")
+        print("%s" % hashes)
+        print("%s Returned to menu." % hashes)
+        print("%s" % hashes)
         return mode_switch()
     elif user_input_exclude == "." or user_input_exclude[0] != "." or user_input_exclude.count(".") > 1:
-        print("########################################################### Invalid extension!")
+        print("%s Invalid extension!" % hashes)
         return custom_ext_exclude_remover()
     elif user_input_exclude.lower() not in file_ext_exclude:
-        print("########################################################### Not found!")
-        print("###########################################################")
+        print("%s Not found!" % hashes)
+        print("%s" % hashes)
         for file_ext_dis in file_ext_exclude:
-            print("########################################################### %s" % file_ext_dis)
-        print("###########################################################")
+            print("{:s} {:s}".format(hashes, file_ext_dis))
+        print("%s" % hashes)
         return custom_ext_exclude_remover()
     else:
         file_ext_exclude.remove(user_input_exclude.lower())
-        print("########################################################### Removed successful!")
-        print("###########################################################")
+        print("%s Removed successful!" % hashes)
+        print("%s" % hashes)
         for file_ext_dis in file_ext_exclude:
-            print("########################################################### %s" % file_ext_dis)
-        print("###########################################################")
+            print("{:s} {:s}".format(hashes, file_ext_dis))
+        print("%s" % hashes)
         return custom_ext_exclude_remover()
 
 def file_filter_list_dir():

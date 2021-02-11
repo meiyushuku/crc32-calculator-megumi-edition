@@ -116,7 +116,7 @@ def info_page2():
     print("cal --walk-t: Scan with mode II and output with mode 2.")
     print("cal --walk-c: Scan with mode II and output with mode 3.")
     print("cal --walk-b: Scan with mode II and output with mode 4.")
-    print("add -ext: Add custom file extension exclusions.")
+    print("add -ex: Add custom file extension exclusions.")
     print("")
     input("Menu >>> ")
     print("")
@@ -161,6 +161,24 @@ def mode_switch():
             return
         elif user_input_menu == "help":
             info_page1()
+        elif user_input_menu == "add -ex":
+            print("########################################################### Testing...")
+            user_input_exclude_ori = input("########################################################### Type here >>> ")
+            user_input_exclude = user_input_exclude_ori.strip()
+            add_count = 0
+            while user_input_exclude != "ok" and add_count !=0:
+                user_input_exclude_ori = input("########################################################### Type here >>> ")
+                user_input_exclude = user_input_exclude_ori.strip()
+                file_ext_exclude.append(user_input_exclude)
+                add_count += 1
+            if add_count == 1:
+                pass
+            else:
+                file_ext_exclude.remove("ok")
+            return mode_switch()
+        elif user_input_menu == "show -ex":
+            print("########################################################### %s" % file_ext_exclude)
+            return mode_switch()
         elif user_input_menu == "":
             print("########################################################### Not entered.")
             return mode_switch()

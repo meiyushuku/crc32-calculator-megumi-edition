@@ -8,7 +8,7 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = str("1.4.0")
+version = str("1.4.01")
 
 file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
 file_ext_exclude = [".py"]
@@ -74,7 +74,7 @@ def menu():
 
 def info_page1():
     print("")
-    print("Execution modes below are porvided:")
+    print("Execution modes below are provided:")
     print("")
     print("Scan modes")
     print("I. Current directory only")

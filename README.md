@@ -16,7 +16,6 @@ II. Tree traversal (including all sub folders)
 <br>
 Output modes
 <br>
-<br>
 1. Vanish mode: the calculation result of CRC-32 are only displayed on screen.
 <br>
 2. Text file: create report as text file with readability.
@@ -30,15 +29,22 @@ The folder named crc_report will be created (if none) in current directory and r
 <br>
 The report file will be named with system time converted to UTC+0 in ISO 8601 format.
 <br>
+<br>
 Files and folders below have been excluded by default:
 <br>
+<br>
 File: desktop.ini, Thumbs.db, .gitattributes, .gitignore
+<br>
 Folder: .git, crc_report
+<br>
 Extension: .py
+<br>
 <br>
 You can also add custom file extension exclusions with a command.
 <br>
+<br>
 Command list:
+<br>
 <br>
 cal -v: Scan with mode I and output with mode 1.
 <br>

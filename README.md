@@ -5,6 +5,11 @@ Users can also add custom file extension exclusions and choose create the report
 <br>
 Execution modes below are provided:
 <br>
+<br>
+Scan modes
+<br>
+1. Current directory only
+<br>
 II. Tree traversal (including all sub folders)
 <br>
 <br>

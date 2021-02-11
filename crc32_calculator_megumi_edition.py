@@ -162,7 +162,7 @@ def mode_switch():
         elif user_input_menu == "help":
             info_page1()
         elif user_input_menu == "add -ex":
-            custom_ext_exclude()
+            #custom_ext_exclude()
         elif user_input_menu == "show -ex":
             print("########################################################### %s" % file_ext_exclude)
             return mode_switch()
@@ -174,38 +174,6 @@ def mode_switch():
             return mode_switch()
     except:
         print("Error code: 108")
-
-def custom_ext_exclude():
-    try:
-        print("########################################################### Testing...")
-        user_input_exclude_ori = input("########################################################### Type here >>> ") #
-        user_input_exclude = user_input_exclude_ori.strip()
-        if user_input_exclude == "menu":
-            return mode_switch()
-        else:
-            if user_input_exclude[0] != ".":
-                if user_input_exclude == "":
-                    print("########################################################### Not entered.")
-                    return custom_ext_exclude()
-                elif print("########################################################### Added failed!"):
-                    print("########################################################### %s" % file_ext_exclude)
-                    return custom_ext_exclude()
-            else: 
-                if user_input_exclude == ".":
-                    print("########################################################### Added failed!")
-                    print("########################################################### %s" % file_ext_exclude)
-                    custom_ext_exclude()
-                elif user_input_exclude in file_ext_exclude:
-                    print("########################################################### Added failed! Have been added.") #
-                    print("########################################################### %s" % file_ext_exclude)
-                    return custom_ext_exclude()
-                else:
-                    file_ext_exclude.append(user_input_exclude)
-                    print("########################################################### Added successfully!")
-                    print("########################################################### %s" % file_ext_exclude) #
-                    custom_ext_exclude()
-    except:
-        print("Error code: 110")
 
 def file_filter_list_dir():
     global file_count, file_count_total, file_name_list

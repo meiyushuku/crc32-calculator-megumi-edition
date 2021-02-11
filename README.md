@@ -1,3 +1,7 @@
+<img src="https://imgur.com/XEB6vDQ">
+<br>
+<img src="https://imgur.com/XEB6vDQ">
+<br>
 This is a tool that helps users know the CRC-32 value of  files by batch in current directory or walking the tree.
 <br>
 Users can also add custom file extension exclusions and choose create the report file or not.

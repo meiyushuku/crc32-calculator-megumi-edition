@@ -1,6 +1,6 @@
-<img src="https://imgur.com/XEB6vDQ">
+<img src="https://i.imgur.com/Zuwyeao.png">
 <br>
-<img src="https://imgur.com/XEB6vDQ">
+<img src="https://i.imgur.com/XEB6vDQ.png">
 <br>
 This is a tool that helps users know the CRC-32 value of  files by batch in current directory or walking the tree.
 <br>

@@ -8,9 +8,10 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-version = "1.4.02"
-hashes = "###########################################################"
-file_name_exclude = [".gitattributes", ".gitignore", "desktop.ini", "thumbs.db"]
+VERSION = "1.4.03"
+HASHES = "###########################################################"
+
+file_name_exclude = [".gitattributes", ".gitignore", "readme.md", "desktop.ini", "thumbs.db"]
 file_ext_exclude = [".py"]
 # For file_filter_list_dir(), file_filter_walk().
 
@@ -19,7 +20,7 @@ def start():
         try: input = raw_input
         except NameError: pass
         menu()
-        print("%s Scanning..." % hashes)
+        print("%s Scanning..." % HASHES)
         print("")
     except:
         print("Error code: 104")
@@ -37,7 +38,7 @@ def menu():
     print("#                     -+=::-*###*++==-=::--=:               ")
     print("#                     ..:-=***##++*=+=+---=-+-              CRC-32 Calculator Megumi Edition")
     print("#                 ..  .:-+##==**+==+==-+=+*--+              ")
-    print("#                ..:::-+**#+=---==:-+***+**=-=.             Version %s (2021) Developed by Meiyu Shuku" % version)
+    print("#                ..:::-+**#+=---==:-+***+**=-=.             Version %s (2021) Developed by Meiyu Shuku" % VERSION)
     print("#               ..::. +#***=+**:...:=++-**+*--:             ")
     print("#              .....  =*#*++=++.    .--.=+*#=+..            ")
     print("#             .....   :+**#-.::...  ....++*#+*-.          # ")
@@ -91,7 +92,7 @@ def info_page1():
     print("")
     print("Files and folders below have been excluded by default:")
     print("")
-    print("File: desktop.ini, Thumbs.db, .gitattributes, .gitignore")
+    print("File: desktop.ini, Thumbs.db, .gitattributes, .gitignore, README.md")
     print("Folder: .git, crc_report")
     print("Extension: .py")
     print("")
@@ -116,16 +117,15 @@ def info_page2():
     print("ex -rm: Remove custom file extension exclusions.")
     print("ex -show: Show custom file extension exclusions.")
     print("")
-    print("Developed by Meiyu Shuku")
-    print("https://github.com/meiyushuku")
-    print("") 
+    print("Developed by Meiyu Shuku https://github.com/meiyushuku")
+    print("")
     input("Menu >>> ")
     print("")
     return start()
 
 def mode_switch():                                                                     
     try:
-        user_input_menu_ori = input("%s Type here >>> " % hashes)
+        user_input_menu_ori = input("%s Type here >>> " % HASHES)
         global scan_mission, output_mission
         user_input_menu = user_input_menu_ori.strip()
         if user_input_menu == "cal -v":
@@ -163,90 +163,90 @@ def mode_switch():
         elif user_input_menu == "help":
             info_page1()
         elif user_input_menu == "ex -add":
-            print("%s" % hashes)
-            print("%s Add one at a time." % hashes)
-            print("%s Type menu to return menu after finishing the addition." % hashes)
-            print("%s" % hashes)
+            print("%s" % HASHES)
+            print("%s Add one at a time." % HASHES)
+            print("%s Type menu to return menu after finishing the addition." % HASHES)
+            print("%s" % HASHES)
             custom_ext_exclude_adder()
         elif user_input_menu == "ex -rm":
-            print("%s" % hashes)
-            print("%s Remove one at a time." % hashes)
-            print("%s Type menu to return menu after finishing the removal." % hashes)
-            print("%s" % hashes)
+            print("%s" % HASHES)
+            print("%s Remove one at a time." % HASHES)
+            print("%s Type menu to return menu after finishing the removal." % HASHES)
+            print("%s" % HASHES)
             custom_ext_exclude_remover()
         elif user_input_menu == "ex -show":
-            print("%s" % hashes)
+            print("%s" % HASHES)
             for file_ext_dis in file_ext_exclude:
-                print("{:s} {:s}".format(hashes, file_ext_dis))
-            print("%s" % hashes)
+                print("{:s} {:s}".format(HASHES, file_ext_dis))
+            print("%s" % HASHES)
             return mode_switch()
         elif user_input_menu == "":
-            print("%s Not entered." % hashes)
+            print("%s Not entered." % HASHES)
             return mode_switch()
         else:
-            print("%s Command is not defined." % hashes)
+            print("%s Command is not defined." % HASHES)
             return mode_switch()
     except:
         print("Error code: 108")
 
 def custom_ext_exclude_adder():
-    user_input_exclude_ori = input("%s Type here >>> " % hashes)
+    user_input_exclude_ori = input("%s Type here >>> " % HASHES)
     user_input_exclude = user_input_exclude_ori.strip()
     if user_input_exclude == "":
-        print("%s No entered." % hashes)
+        print("%s No entered." % HASHES)
         return custom_ext_exclude_adder()
     elif user_input_exclude == "menu":
-        print("%s" % hashes)
-        print("%s Returned to menu." % hashes)
-        print("%s" % hashes)
+        print("%s" % HASHES)
+        print("%s Returned to menu." % HASHES)
+        print("%s" % HASHES)
         return mode_switch()
     elif user_input_exclude == "." or user_input_exclude[0] != "." or user_input_exclude.count(".") > 1:
-        print("%s Invalid extension!" % hashes)
+        print("%s Invalid extension!" % HASHES)
         return custom_ext_exclude_adder()
     elif user_input_exclude.lower() in file_ext_exclude:
-        print("%s Have been added!" % hashes)
-        print("%s" % hashes)
+        print("%s Have been added!" % HASHES)
+        print("%s" % HASHES)
         for file_ext_dis in file_ext_exclude:
-            print("{:s} {:s}".format(hashes, file_ext_dis))
-        print("%s" % hashes)
+            print("{:s} {:s}".format(HASHES, file_ext_dis))
+        print("%s" % HASHES)
         return custom_ext_exclude_adder()
     else:
         file_ext_exclude.append(user_input_exclude.lower())
-        print("%s Added successful!" % hashes)
-        print("%s" % hashes)
+        print("%s Added successful!" % HASHES)
+        print("%s" % HASHES)
         for file_ext_dis in file_ext_exclude:
-            print("{:s} {:s}".format(hashes, file_ext_dis))
-        print("%s" % hashes)
+            print("{:s} {:s}".format(HASHES, file_ext_dis))
+        print("%s" % HASHES)
         return custom_ext_exclude_adder()
 
 def custom_ext_exclude_remover():
-    user_input_exclude_ori = input("%s Type here >>> " % hashes)
+    user_input_exclude_ori = input("%s Type here >>> " % HASHES)
     user_input_exclude = user_input_exclude_ori.strip()
     if user_input_exclude == "":
-        print("%s No entered." % hashes)
+        print("%s No entered." % HASHES)
         return custom_ext_exclude_remover()
     elif user_input_exclude == "menu":
-        print("%s" % hashes)
-        print("%s Returned to menu." % hashes)
-        print("%s" % hashes)
+        print("%s" % HASHES)
+        print("%s Returned to menu." % HASHES)
+        print("%s" % HASHES)
         return mode_switch()
     elif user_input_exclude == "." or user_input_exclude[0] != "." or user_input_exclude.count(".") > 1:
-        print("%s Invalid extension!" % hashes)
+        print("%s Invalid extension!" % HASHES)
         return custom_ext_exclude_remover()
     elif user_input_exclude.lower() not in file_ext_exclude:
-        print("%s Not found!" % hashes)
-        print("%s" % hashes)
+        print("%s Not found!" % HASHES)
+        print("%s" % HASHES)
         for file_ext_dis in file_ext_exclude:
-            print("{:s} {:s}".format(hashes, file_ext_dis))
-        print("%s" % hashes)
+            print("{:s} {:s}".format(HASHES, file_ext_dis))
+        print("%s" % HASHES)
         return custom_ext_exclude_remover()
     else:
         file_ext_exclude.remove(user_input_exclude.lower())
-        print("%s Removed successful!" % hashes)
-        print("%s" % hashes)
+        print("%s Removed successful!" % HASHES)
+        print("%s" % HASHES)
         for file_ext_dis in file_ext_exclude:
-            print("{:s} {:s}".format(hashes, file_ext_dis))
-        print("%s" % hashes)
+            print("{:s} {:s}".format(HASHES, file_ext_dis))
+        print("%s" % HASHES)
         return custom_ext_exclude_remover()
 
 def file_filter_list_dir():

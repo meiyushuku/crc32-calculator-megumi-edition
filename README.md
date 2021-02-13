@@ -36,7 +36,7 @@ The report file will be named with system time converted to UTC+0 in ISO 8601 fo
 Files and folders below have been excluded by default:
 <br>
 <br>
-File: desktop.ini, Thumbs.db, .gitattributes, .gitignore
+File: desktop.ini, Thumbs.db, .gitattributes, .gitignore, README.md
 <br>
 Folder: .git, crc_report
 <br>

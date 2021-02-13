@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 drawer/img1.png
 drawer/img2.png
 drawer/img3.png
@@ -132,3 +133,22 @@ version_history/crc32_calculator_megumi_edition1401.py
 version_history/crc32_calculator_megumi_edition1402.py
 version_history/crc32_calculator_megumi_edition1403.py
 version_history/history.txt
+=======
+test_package/01.png
+test_package/02.png
+test_package/03.png
+test_package/04.png
+test_package/crc_report/20210210T183121Z.txt
+test_package/crc_report/20210210T194915Z.csv
+test_package/crc_report/20210210T194915Z.txt
+test_package/crc_report/20210210T194937Z.csv
+test_package/crc_report/20210210T194937Z.txt
+test_package/crc_report/20210210T195045Z.csv
+test_package/crc_report/20210210T195045Z.txt
+test_package/crc_report/20210210T195207Z.csv
+test_package/crc_report/20210210T195207Z.txt
+test_package/same_name_test/01.png
+test_package/same_name_test/02.png
+test_package/valid_file.txt
+test_package/void.txt
+>>>>>>> 49c7665d07dd25d9135f3aae59176975d859acd3

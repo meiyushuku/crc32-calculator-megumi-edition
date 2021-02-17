@@ -8,7 +8,7 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-VERSION = "1.4.03"
+VERSION = "1.4.04"
 HASHES = "###########################################################"
 
 file_name_exclude = [".gitattributes", ".gitignore", "readme.md", "desktop.ini", "thumbs.db"]
@@ -126,39 +126,52 @@ def info_page2():
 def mode_switch():                                                                     
     try:
         user_input_menu_ori = input("%s Type here >>> " % HASHES)
-        global scan_mission, output_mission
+        global scan_mission, output_mission, rename_mission
         user_input_menu = user_input_menu_ori.strip()
         if user_input_menu == "cal -v":
             scan_mission = 100
             output_mission = 60
+            rename_mission = 0
             return
         elif user_input_menu == "cal -t":
             scan_mission = 100
             output_mission = 70
+            rename_mission = 0
             return
         elif user_input_menu == "cal -c":
             scan_mission = 100
             output_mission = 80
+            rename_mission = 0
             return
         elif user_input_menu == "cal -b":
             scan_mission = 100
             output_mission = 90
+            rename_mission = 0
             return
         elif user_input_menu == "cal --walk-v":
             scan_mission = 200
             output_mission = 60
+            rename_mission = 0
             return
         elif user_input_menu == "cal --walk-t":
             scan_mission = 200
             output_mission = 70
+            rename_mission = 0
             return
         elif user_input_menu == "cal --walk-c":
             scan_mission = 200
             output_mission = 80
+            rename_mission = 0
             return
         elif user_input_menu == "cal --walk-b":
             scan_mission = 200
             output_mission = 90
+            rename_mission = 0
+            return
+        elif user_input_menu == "rn":
+            scan_mission = 100
+            output_mission = 60
+            rename_mission = 1
             return
         elif user_input_menu == "help":
             info_page1()
@@ -346,6 +359,19 @@ def display():
         # [5] Display result of CRC-32.
         # [6] Creat time_stamp by [3].
         # [7] Display time_stamp.
+        rename_path = os.path.split(file_name_abs)[0] + "\\"
+        rename_name = os.path.splitext(os.path.split(file_name)[1])[0]
+        rename_ext = os.path.splitext(os.path.split(file_name)[1])[1]
+        print(scan_mission)
+        print(rename_mission)
+        try:
+            if rename_mission == 1:
+                print(file_name_abs)
+                print(rename_path + rename_name + str("-%08X" % result) + rename_ext)
+                print("")
+                os.rename(file_name_abs, rename_path + rename_name + str("-%08X" % result) + rename_ext)
+        except:
+            print("Error code: 110")
         ########################
         ### Output Workspace ###
         ########################

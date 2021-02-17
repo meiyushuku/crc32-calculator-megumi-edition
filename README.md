@@ -46,7 +46,7 @@ Extension: .py
 Users can also add custom file extension exclusions with a command.
 <br>
 <br>
-## Command list:
+Command list:
 <br>
 <br>
 cal -v: Scan with mode I and output with mode 1.

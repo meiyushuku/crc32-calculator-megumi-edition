@@ -8,7 +8,7 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-VERSION = "1.4.04"
+VERSION = "1.4.05"
 HASHES = "###########################################################"
 
 file_name_exclude = [".gitattributes", ".gitignore", "readme.md", "desktop.ini", "thumbs.db"]
@@ -113,9 +113,9 @@ def info_page2():
     print("cal --walk-t: Scan with mode II and output with mode 2.")
     print("cal --walk-c: Scan with mode II and output with mode 3.")
     print("cal --walk-b: Scan with mode II and output with mode 4.")
-    print("ex -add: Add custom file extension exclusions.")
-    print("ex -rm: Remove custom file extension exclusions.")
-    print("ex -show: Show custom file extension exclusions.")
+    print("exclude -a: Add extension(s) to the exclusion list.")
+    print("exclude -d: Delete extension(s) from the exclusion list")
+    print("exclude -s: Show the extension exclusion list.")
     print("")
     print("Developed by Meiyu Shuku https://github.com/meiyushuku")
     print("")
@@ -128,7 +128,9 @@ def mode_switch():
         user_input_menu_ori = input("%s Type here >>> " % HASHES)
         global scan_mission, output_mission, rename_mission
         user_input_menu = user_input_menu_ori.strip()
-        if user_input_menu == "cal -v":
+        if user_input_menu == "help":
+            info_page1()
+        elif user_input_menu == "cal -v":
             scan_mission = 100
             output_mission = 60
             rename_mission = 0
@@ -168,26 +170,60 @@ def mode_switch():
             output_mission = 90
             rename_mission = 0
             return
-        elif user_input_menu == "rn":
+        elif user_input_menu == "cal -v-ren":
             scan_mission = 100
             output_mission = 60
             rename_mission = 1
             return
-        elif user_input_menu == "help":
-            info_page1()
-        elif user_input_menu == "ex -add":
+        elif user_input_menu == "cal -t-ren":
+            scan_mission = 100
+            output_mission = 70
+            rename_mission = 1
+            return
+        elif user_input_menu == "cal -c-ren":
+            scan_mission = 100
+            output_mission = 80
+            rename_mission = 1
+            return
+        elif user_input_menu == "cal -b-ren":
+            scan_mission = 100
+            output_mission = 90
+            rename_mission = 1
+            return
+        elif user_input_menu == "cal --walk-v-ren":
+            scan_mission = 200
+            output_mission = 60
+            rename_mission = 1
+            return
+        elif user_input_menu == "cal --walk-t-ren":
+            scan_mission = 200
+            output_mission = 70
+            rename_mission = 1
+            return
+        elif user_input_menu == "cal --walk-c-ren":
+            scan_mission = 200
+            output_mission = 80
+            rename_mission = 1
+            return
+        elif user_input_menu == "cal --walk-b-ren":
+            scan_mission = 200
+            output_mission = 90
+            rename_mission = 1
+            return
+        #elif user_input_menu == "":
+        elif user_input_menu == "exclude -a":
             print("%s" % HASHES)
             print("%s Add one at a time." % HASHES)
             print("%s Type menu to return menu after finishing the addition." % HASHES)
             print("%s" % HASHES)
             custom_ext_exclude_adder()
-        elif user_input_menu == "ex -rm":
+        elif user_input_menu == "exclude -d":
             print("%s" % HASHES)
             print("%s Remove one at a time." % HASHES)
             print("%s Type menu to return menu after finishing the removal." % HASHES)
             print("%s" % HASHES)
             custom_ext_exclude_remover()
-        elif user_input_menu == "ex -show":
+        elif user_input_menu == "exclude -s":
             print("%s" % HASHES)
             for file_ext_dis in file_ext_exclude:
                 print("{:s} {:s}".format(HASHES, file_ext_dis))
@@ -359,16 +395,14 @@ def display():
         # [5] Display result of CRC-32.
         # [6] Creat time_stamp by [3].
         # [7] Display time_stamp.
+        ##########################
+        ### Renaming Workspace ###
+        ##########################
         rename_path = os.path.split(file_name_abs)[0] + "\\"
         rename_name = os.path.splitext(os.path.split(file_name)[1])[0]
         rename_ext = os.path.splitext(os.path.split(file_name)[1])[1]
-        print(scan_mission)
-        print(rename_mission)
         try:
-            if rename_mission == 1:
-                print(file_name_abs)
-                print(rename_path + rename_name + str("-%08X" % result) + rename_ext)
-                print("")
+            if rename_mission == 1 and rename_name.find("%08X" % result) == -1:
                 os.rename(file_name_abs, rename_path + rename_name + str("-%08X" % result) + rename_ext)
         except:
             print("Error code: 110")

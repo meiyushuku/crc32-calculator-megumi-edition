@@ -26,3 +26,7 @@ for file in os.listdir(path):
                 os.rename(file_name, "./" + str(i) + ".png")
                 i += 1
                 print(file_name)
+
+file_name_str = str("123457.png")
+
+print(file_name_str.find("669D487D"))

@@ -50,27 +50,27 @@ Users can also add custom file extension exclusions with a command.
 Command list:
 <br>
 <br>
-<code>cal -v</code>Scan with mode I and output with mode 1.
+<code>cal -v</code> Scan with mode I and output with mode 1.
 <br>
-<code>cal -t</code>Scan with mode I and output with mode 2.
+<code>cal -t</code> Scan with mode I and output with mode 2.
 <br>
-<code>cal -c</code>Scan with mode I and output with mode 3.
+<code>cal -c</code> Scan with mode I and output with mode 3.
 <br>
-<code>cal -b</code>Scan with mode I and output with mode 4.
+<code>cal -b</code> Scan with mode I and output with mode 4.
 <br>
-<code>cal --walk-v</code>Scan with mode II and output with mode 1.
+<code>cal --walk-v</code> Scan with mode II and output with mode 1.
 <br>
-<code>cal --walk-t</code>Scan with mode II and output with mode 2.
+<code>cal --walk-t</code> Scan with mode II and output with mode 2.
 <br>
-<code>cal --walk-c</code>Scan with mode II and output with mode 3.
+<code>cal --walk-c</code> Scan with mode II and output with mode 3.
 <br>
-<code>cal --walk-b</code>Scan with mode II and output with mode 4.
+<code>cal --walk-b</code> Scan with mode II and output with mode 4.
 <br>
-<code>ex -add</code>Add custom file extension exclusions.
+<code>ex -add</code> Add custom file extension exclusions.
 <br>
-<code>ex -rm</code>Remove custom file extension exclusions.
+<code>ex -rm</code> Remove custom file extension exclusions.
 <br>
-<code>ex -show</code>Show custom file extension exclusions.
+<code>ex -show</code> Show custom file extension exclusions.
 <br>
 <br>
 Developed by Meiyu Shuku https://github.com/meiyushuku

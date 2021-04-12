@@ -8,7 +8,7 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-VERSION = "1.5.0"
+VERSION = "1.5.1"
 HASHES = "###########################################################"
 
 file_name_exclude = [".gitattributes", ".gitignore", "readme.md", "desktop.ini", "thumbs.db"]
@@ -403,7 +403,7 @@ def display():
         rename_ext = os.path.splitext(os.path.split(file_name)[1])[1]
         try:
             if rename_mission == 1 and rename_name.find("%08X" % result) == -1:
-                os.rename(file_name_abs, rename_path + rename_name + str("-%08X" % result) + rename_ext)
+                os.rename(file_name_abs, rename_path + rename_name + str(" [%08X]" % result) + rename_ext)
         except:
             print("Error code: 110")
         ########################

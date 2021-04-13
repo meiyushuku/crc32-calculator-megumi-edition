@@ -21,7 +21,6 @@ def start():
         except NameError: pass
         menu()
         print("%s Scanning..." % HASHES)
-        print("")
     except:
         print("Error code: 104")
 
@@ -170,47 +169,46 @@ def mode_switch():
             output_mission = 90
             rename_mission = 0
             return
-        elif user_input_menu == "cal -v-ren":
+        elif user_input_menu == "ren -v":
             scan_mission = 100
             output_mission = 60
             rename_mission = 1
             return
-        elif user_input_menu == "cal -t-ren":
+        elif user_input_menu == "ren -t":
             scan_mission = 100
             output_mission = 70
             rename_mission = 1
             return
-        elif user_input_menu == "cal -c-ren":
+        elif user_input_menu == "ren -c":
             scan_mission = 100
             output_mission = 80
             rename_mission = 1
             return
-        elif user_input_menu == "cal -b-ren":
+        elif user_input_menu == "ren -b":
             scan_mission = 100
             output_mission = 90
             rename_mission = 1
             return
-        elif user_input_menu == "cal --walk-v-ren":
+        elif user_input_menu == "ren --walk-v":
             scan_mission = 200
             output_mission = 60
             rename_mission = 1
             return
-        elif user_input_menu == "cal --walk-t-ren":
+        elif user_input_menu == "ren --walk-t":
             scan_mission = 200
             output_mission = 70
             rename_mission = 1
             return
-        elif user_input_menu == "cal --walk-c-ren":
+        elif user_input_menu == "ren --walk-c":
             scan_mission = 200
             output_mission = 80
             rename_mission = 1
             return
-        elif user_input_menu == "cal --walk-b-ren":
+        elif user_input_menu == "ren --walk-b":
             scan_mission = 200
             output_mission = 90
             rename_mission = 1
             return
-        #elif user_input_menu == "":
         elif user_input_menu == "exclude -a":
             print("%s" % HASHES)
             print("%s Add one at a time." % HASHES)
@@ -250,10 +248,10 @@ def custom_ext_exclude_adder():
         print("%s" % HASHES)
         return mode_switch()
     elif user_input_exclude == "." or user_input_exclude[0] != "." or user_input_exclude.count(".") > 1:
-        print("%s Invalid extension!" % HASHES)
+        print("%s Invalid extension." % HASHES)
         return custom_ext_exclude_adder()
     elif user_input_exclude.lower() in file_ext_exclude:
-        print("%s Have been added!" % HASHES)
+        print("%s Have been added." % HASHES)
         print("%s" % HASHES)
         for file_ext_dis in file_ext_exclude:
             print("{:s} {:s}".format(HASHES, file_ext_dis))
@@ -261,7 +259,7 @@ def custom_ext_exclude_adder():
         return custom_ext_exclude_adder()
     else:
         file_ext_exclude.append(user_input_exclude.lower())
-        print("%s Added successful!" % HASHES)
+        print("%s Added successfully." % HASHES)
         print("%s" % HASHES)
         for file_ext_dis in file_ext_exclude:
             print("{:s} {:s}".format(HASHES, file_ext_dis))
@@ -280,10 +278,10 @@ def custom_ext_exclude_remover():
         print("%s" % HASHES)
         return mode_switch()
     elif user_input_exclude == "." or user_input_exclude[0] != "." or user_input_exclude.count(".") > 1:
-        print("%s Invalid extension!" % HASHES)
+        print("%s Invalid extension." % HASHES)
         return custom_ext_exclude_remover()
     elif user_input_exclude.lower() not in file_ext_exclude:
-        print("%s Not found!" % HASHES)
+        print("%s Not found." % HASHES)
         print("%s" % HASHES)
         for file_ext_dis in file_ext_exclude:
             print("{:s} {:s}".format(HASHES, file_ext_dis))
@@ -291,7 +289,7 @@ def custom_ext_exclude_remover():
         return custom_ext_exclude_remover()
     else:
         file_ext_exclude.remove(user_input_exclude.lower())
-        print("%s Removed successful!" % HASHES)
+        print("%s Removed successfully." % HASHES)
         print("%s" % HASHES)
         for file_ext_dis in file_ext_exclude:
             print("{:s} {:s}".format(HASHES, file_ext_dis))
@@ -351,9 +349,8 @@ def file_filter_walk():
         print("Error code: 109")
 
 def display():
-    global file_size_dis, result, time_stamp
     try:
-        print("{}/{}".format(file_count, file_count_total))
+        print("\n{}/{}".format(file_count, file_count_total))
         print("Path: %s" % os.path.split(file_name_abs)[0])
         print("File: %s" % os.path.split(file_name_abs)[1])
         if file_size_class == 1:  
@@ -387,7 +384,7 @@ def display():
         print("Elapsed time: {:.2f} s".format(timeEnd - time_start)) # [4]
         print("CRC-32: %08X" % result) # [5]
         time_stamp = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(timeEnd)) # [6]
-        print("Timestamp: %s\n" % time_stamp) # [7]
+        print("Timestamp: %s" % time_stamp) # [7]
         # [1] Get beginning time.
         # [2] Get result of CRC-32.
         # [3] Get ending time.
@@ -395,37 +392,24 @@ def display():
         # [5] Display result of CRC-32.
         # [6] Creat time_stamp by [3].
         # [7] Display time_stamp.
-        ##########################
-        ### Renaming Workspace ###
-        ##########################
-        rename_path = os.path.split(file_name_abs)[0] + "\\"
-        rename_name = os.path.splitext(os.path.split(file_name)[1])[0]
-        rename_ext = os.path.splitext(os.path.split(file_name)[1])[1]
-        try:
-            if rename_mission == 1 and rename_name.find("%08X" % result) == -1:
-                os.rename(file_name_abs, rename_path + rename_name + str(" [%08X]" % result) + rename_ext)
-        except:
-            print("Error code: 110")
-        ########################
-        ### Output Workspace ###
-        ########################
-        try:
-            if output_mission == 60:
-                return
-            elif output_mission == 70:
-                outputer_txt()
-                return
-            elif output_mission == 80:
-                outputer_csv()
-                return
-            elif output_mission == 90:
-                outputer_txt()
-                outputer_csv()
-                return
-        except:
-            print("Error code: 105")
-            return 0
-        ########################
+        ###########################
+        ### Renaming and Output ###
+        ###########################
+        if rename_mission == 1:
+            rename(result)
+        if output_mission == 60:
+            return
+        elif output_mission == 70:
+            outputer_txt(file_size_dis, result, time_stamp)
+            return
+        elif output_mission == 80:
+            outputer_csv(file_size_dis, result, time_stamp)
+            return
+        elif output_mission == 90:
+            outputer_txt(file_size_dis, result, time_stamp)
+            outputer_csv(file_size_dis, result, time_stamp)
+            return
+        ###########################
         return
     except:
         print("Error code: 103")
@@ -512,7 +496,27 @@ def file_size_filter(file_size):
     except:
         print("Error code: 102")
 
-def outputer_txt():
+def rename(result):
+    try:
+        rename_path = os.path.split(file_name_abs)[0] + "\\"
+        rename_name = os.path.splitext(os.path.split(file_name)[1])[0]
+        rename_ext = os.path.splitext(os.path.split(file_name)[1])[1]
+        if rename_name[-10] == "[" and rename_name[-1] == "]":
+            if rename_name[-9:-1] == str("%08X" % result):
+                print("CRC-32 values are equal.")
+            elif rename_name[-9:-1] != str("%08X" % result):
+                print("[!] CRC-32 values are different.")
+        else:
+            try:
+                os.rename(file_name_abs, rename_path + rename_name + str(" [%08X]" % result) + rename_ext)
+                print("Renamed successfully.")
+            except:
+                print("[!] Rename failed.")
+        return
+    except:
+        print("Error code: 110")
+
+def outputer_txt(file_size_dis, result, time_stamp):
     try:
         report_folder = ".\\crc_report"
         if not os.path.isdir(report_folder):
@@ -531,7 +535,7 @@ def outputer_txt():
     except:
         print("Error code: 106")
 
-def outputer_csv():
+def outputer_csv(file_size_dis, result, time_stamp):
     try:
         csv_list = list()
         csv_list.append(str('"%s"' % os.path.split(file_name_abs)[0])) # column1
@@ -573,8 +577,7 @@ def outputer_csv():
 #######################
 ### Start from Here ###
 #######################
-controller = time.time()
-while controller: # Mean: while controller != 0
+while True:
     start()
 ####################################
 ### Next: menu() -> mode_switch() ##
@@ -609,9 +612,11 @@ while controller: # Mean: while controller != 0
     ##################################################################
 
     if file_count == 0:
+        print("")
         print("No file which need to be calculated in this folder.")
         print("Use the command below to do something or exit by any other.")
     else:
+        print("")
         print("Task is completed. Use the command below to do something or exit by any other.")
     print("")
     print("menu: Return to menu.")

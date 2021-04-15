@@ -637,6 +637,8 @@ while True:
         file_filter_cur()
     elif scan_mission == 200:
         file_filter_walk()
+    if rename_mission == 1:
+        print("{:s} {} files may be renamed, sure?".format(HASHES, file_count_total))
     for file_name in file_name_list:
         file_name_abs = os.path.abspath(file_name)
         # For display() and outputer_?().

@@ -8,12 +8,12 @@ import codecs # [6]
 import sys
 # Import module of CRC-32[1], system[2], math[3], time[4], regular expression[5], and character encoding[6].
 
-VERSION = "1.5.1"
+VERSION = "1.5.2"
 HASHES = "###########################################################"
 
-file_name_exclude = [".gitattributes", ".gitignore", "readme.md", "desktop.ini", "thumbs.db"]
-file_ext_exclude = [".py"]
-# For file_filter_list_dir(), file_filter_walk().
+filename_exclusions = [".gitattributes", ".gitignore", "readme.md", "desktop.ini", "thumbs.db"]
+extension_exclusions = [".py"]
+# For file_filter_cur(), file_filter_walk().
 
 def start():
     try:
@@ -22,7 +22,7 @@ def start():
         menu()
         print("%s Scanning..." % HASHES)
     except:
-        print("Error code: 104")
+        print("[!] Error code: 104")
 
 def menu():
     #print("                           ........:::..                   ")
@@ -124,179 +124,202 @@ def info_page2():
 
 def mode_switch():                                                                     
     try:
-        user_input_menu_ori = input("%s Type here >>> " % HASHES)
-        global scan_mission, output_mission, rename_mission
-        user_input_menu = user_input_menu_ori.strip()
-        if user_input_menu == "help":
+        input_menu_ori = input("%s Type here >>> " % HASHES)
+        global scan_mission, output_mission, rename_mission, unrenamed_misson
+        input_menu = input_menu_ori.strip()
+        if input_menu == "help":
             info_page1()
-        elif user_input_menu == "cal -v":
+        elif input_menu == "cal -v":
             scan_mission = 100
             output_mission = 60
             rename_mission = 0
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "cal -t":
+        elif input_menu == "cal -t":
             scan_mission = 100
             output_mission = 70
             rename_mission = 0
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "cal -c":
+        elif input_menu == "cal -c":
             scan_mission = 100
             output_mission = 80
             rename_mission = 0
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "cal -b":
+        elif input_menu == "cal -b":
             scan_mission = 100
             output_mission = 90
             rename_mission = 0
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "cal --walk-v":
+        elif input_menu == "cal --walk-v":
             scan_mission = 200
             output_mission = 60
             rename_mission = 0
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "cal --walk-t":
+        elif input_menu == "cal --walk-t":
             scan_mission = 200
             output_mission = 70
             rename_mission = 0
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "cal --walk-c":
+        elif input_menu == "cal --walk-c":
             scan_mission = 200
             output_mission = 80
             rename_mission = 0
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "cal --walk-b":
+        elif input_menu == "cal --walk-b":
             scan_mission = 200
             output_mission = 90
             rename_mission = 0
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "ren -v":
+        elif input_menu == "ren -v":
             scan_mission = 100
             output_mission = 60
             rename_mission = 1
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "ren -t":
+        elif input_menu == "ren -t":
             scan_mission = 100
             output_mission = 70
             rename_mission = 1
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "ren -c":
+        elif input_menu == "ren -c":
             scan_mission = 100
             output_mission = 80
             rename_mission = 1
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "ren -b":
+        elif input_menu == "ren -b":
             scan_mission = 100
             output_mission = 90
             rename_mission = 1
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "ren --walk-v":
+        elif input_menu == "ren --walk-v":
             scan_mission = 200
             output_mission = 60
             rename_mission = 1
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "ren --walk-t":
+        elif input_menu == "ren --walk-t":
             scan_mission = 200
             output_mission = 70
             rename_mission = 1
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "ren --walk-c":
+        elif input_menu == "ren --walk-c":
             scan_mission = 200
             output_mission = 80
             rename_mission = 1
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "ren --walk-b":
+        elif input_menu == "ren --walk-b":
             scan_mission = 200
             output_mission = 90
             rename_mission = 1
+            unrenamed_misson = 0
             return
-        elif user_input_menu == "exclude -a":
+        elif input_menu == "ren -un-v":
+            scan_mission = 100
+            output_mission = 60
+            rename_mission = 1
+            uncal_misson = 1
+            unrenamed_misson = 1
+            return
+        elif input_menu == "exc -a":
             print("%s" % HASHES)
             print("%s Add one at a time." % HASHES)
             print("%s Type menu to return menu after finishing the addition." % HASHES)
             print("%s" % HASHES)
-            custom_ext_exclude_adder()
-        elif user_input_menu == "exclude -d":
+            add_extension_exclusion()
+        elif input_menu == "exc -d":
             print("%s" % HASHES)
             print("%s Remove one at a time." % HASHES)
             print("%s Type menu to return menu after finishing the removal." % HASHES)
             print("%s" % HASHES)
-            custom_ext_exclude_remover()
-        elif user_input_menu == "exclude -s":
+            remove_extension_exclusion()
+        elif input_menu == "exc -s":
             print("%s" % HASHES)
-            for file_ext_dis in file_ext_exclude:
-                print("{:s} {:s}".format(HASHES, file_ext_dis))
+            for show_extension_exclusions in extension_exclusions:
+                print("{:s} {:s}".format(HASHES, show_extension_exclusions))
             print("%s" % HASHES)
             return mode_switch()
-        elif user_input_menu == "":
-            print("%s Not entered." % HASHES)
+        elif input_menu == "":
+            print("%s [!] Not entered." % HASHES)
             return mode_switch()
         else:
-            print("%s Command is not defined." % HASHES)
+            print("%s [!] Command is not defined." % HASHES)
             return mode_switch()
     except:
-        print("Error code: 108")
+        print("[!] Error code: 108")
 
-def custom_ext_exclude_adder():
-    user_input_exclude_ori = input("%s Type here >>> " % HASHES)
-    user_input_exclude = user_input_exclude_ori.strip()
-    if user_input_exclude == "":
-        print("%s No entered." % HASHES)
-        return custom_ext_exclude_adder()
-    elif user_input_exclude == "menu":
+def add_extension_exclusion():
+    input_exclusion_ori = input("%s Type here >>> " % HASHES)
+    input_exclusion = input_exclusion_ori.strip()
+    if input_exclusion == "":
+        print("%s [!] No entered." % HASHES)
+        return add_extension_exclusion()
+    elif input_exclusion == "menu":
         print("%s" % HASHES)
         print("%s Returned to menu." % HASHES)
         print("%s" % HASHES)
         return mode_switch()
-    elif user_input_exclude == "." or user_input_exclude[0] != "." or user_input_exclude.count(".") > 1:
-        print("%s Invalid extension." % HASHES)
-        return custom_ext_exclude_adder()
-    elif user_input_exclude.lower() in file_ext_exclude:
-        print("%s Have been added." % HASHES)
+    elif input_exclusion == "." or input_exclusion[0] != "." or input_exclusion.count(".") > 1:
+        print("%s [!] Invalid extension." % HASHES)
+        return add_extension_exclusion()
+    elif input_exclusion.lower() in extension_exclusions:
+        print("%s [!] Have been added." % HASHES)
         print("%s" % HASHES)
-        for file_ext_dis in file_ext_exclude:
-            print("{:s} {:s}".format(HASHES, file_ext_dis))
+        for show_extension_exclusions in extension_exclusions:
+            print("{:s} {:s}".format(HASHES, show_extension_exclusions))
         print("%s" % HASHES)
-        return custom_ext_exclude_adder()
+        return add_extension_exclusion()
     else:
-        file_ext_exclude.append(user_input_exclude.lower())
+        extension_exclusions.append(input_exclusion.lower())
         print("%s Added successfully." % HASHES)
         print("%s" % HASHES)
-        for file_ext_dis in file_ext_exclude:
-            print("{:s} {:s}".format(HASHES, file_ext_dis))
+        for show_extension_exclusions in extension_exclusions:
+            print("{:s} {:s}".format(HASHES, show_extension_exclusions))
         print("%s" % HASHES)
-        return custom_ext_exclude_adder()
+        return add_extension_exclusion()
 
-def custom_ext_exclude_remover():
-    user_input_exclude_ori = input("%s Type here >>> " % HASHES)
-    user_input_exclude = user_input_exclude_ori.strip()
-    if user_input_exclude == "":
-        print("%s No entered." % HASHES)
-        return custom_ext_exclude_remover()
-    elif user_input_exclude == "menu":
+def remove_extension_exclusion():
+    input_exclusion_ori = input("%s Type here >>> " % HASHES)
+    input_exclusion = input_exclusion_ori.strip()
+    if input_exclusion == "":
+        print("%s [!] No entered." % HASHES)
+        return remove_extension_exclusion()
+    elif input_exclusion == "menu":
         print("%s" % HASHES)
         print("%s Returned to menu." % HASHES)
         print("%s" % HASHES)
         return mode_switch()
-    elif user_input_exclude == "." or user_input_exclude[0] != "." or user_input_exclude.count(".") > 1:
-        print("%s Invalid extension." % HASHES)
-        return custom_ext_exclude_remover()
-    elif user_input_exclude.lower() not in file_ext_exclude:
-        print("%s Not found." % HASHES)
+    elif input_exclusion == "." or input_exclusion[0] != "." or input_exclusion.count(".") > 1:
+        print("%s [!] Invalid extension." % HASHES)
+        return remove_extension_exclusion()
+    elif input_exclusion.lower() not in extension_exclusions:
+        print("%s [!] Not found." % HASHES)
         print("%s" % HASHES)
-        for file_ext_dis in file_ext_exclude:
-            print("{:s} {:s}".format(HASHES, file_ext_dis))
+        for show_extension_exclusions in extension_exclusions:
+            print("{:s} {:s}".format(HASHES, show_extension_exclusions))
         print("%s" % HASHES)
-        return custom_ext_exclude_remover()
+        return remove_extension_exclusion()
     else:
-        file_ext_exclude.remove(user_input_exclude.lower())
+        extension_exclusions.remove(input_exclusion.lower())
         print("%s Removed successfully." % HASHES)
         print("%s" % HASHES)
-        for file_ext_dis in file_ext_exclude:
-            print("{:s} {:s}".format(HASHES, file_ext_dis))
+        for show_extension_exclusions in extension_exclusions:
+            print("{:s} {:s}".format(HASHES, show_extension_exclusions))
         print("%s" % HASHES)
-        return custom_ext_exclude_remover()
+        return remove_extension_exclusion()
 
-def file_filter_list_dir():
+def file_filter_cur():
     global file_count, file_count_total, file_name_list
     try:
         path = "."
@@ -309,15 +332,24 @@ def file_filter_list_dir():
                 file_size = os.path.getsize(file_name) 
                 # For filtering unnecessary files.
                 if file_size != 0:
-                    if str(file_name).lower() in file_name_exclude:
+                    if str(file_name).lower() in filename_exclusions:
                         pass
-                    elif str(os.path.splitext(file_name)[1]).lower() in file_ext_exclude:
+                    elif str(os.path.splitext(file_name)[1]).lower() in extension_exclusions:
                         pass
                     else:
-                        file_count_total += 1
-                        file_name_list.append(file_name)
+                        if unrenamed_misson == 0:
+                            file_count_total += 1
+                            file_name_list.append(file_name)
+                        elif unrenamed_misson == 1:
+                            rename_name = os.path.splitext(os.path.split(file_name)[1])[0]
+                            if rename_name[-10] == "[" and rename_name[-1] == "]":
+                                pass
+                            else:
+                                file_count_total += 1
+                                file_name_list.append(file_name)
+
     except:
-        print("Error code: 100")
+        print("[!] Error code: 100")
 
 def file_filter_walk():
     global file_count, file_count_total, file_name_list
@@ -338,15 +370,23 @@ def file_filter_walk():
                     file_size = os.path.getsize(file_name) 
                     # For filtering unnecessary files.
                     if file_size != 0:
-                        if str(os.path.split(file_name)[1]).lower() in file_name_exclude:
+                        if str(os.path.split(file_name)[1]).lower() in filename_exclusions:
                             pass
-                        elif str(os.path.splitext(os.path.split(file_name)[1])[1]).lower() in file_ext_exclude:
+                        elif str(os.path.splitext(os.path.split(file_name)[1])[1]).lower() in extension_exclusions:
                             pass
                         else:
-                            file_count_total += 1
-                            file_name_list.append(file_name)
+                            if unrenamed_misson == 0:
+                                file_count_total += 1
+                                file_name_list.append(file_name)
+                            elif unrenamed_misson == 1:
+                                rename_name = os.path.splitext(os.path.split(file_name)[1])[0]
+                                if rename_name[-10] == "[" and rename_name[-1] == "]":
+                                    pass
+                                else:
+                                    file_count_total += 1
+                                    file_name_list.append(file_name)
     except:
-        print("Error code: 109")
+        print("[!] Error code: 109")
 
 def display():
     try:
@@ -400,19 +440,19 @@ def display():
         if output_mission == 60:
             return
         elif output_mission == 70:
-            outputer_txt(file_size_dis, result, time_stamp)
+            output_txt(file_size_dis, result, time_stamp)
             return
         elif output_mission == 80:
-            outputer_csv(file_size_dis, result, time_stamp)
+            output_csv(file_size_dis, result, time_stamp)
             return
         elif output_mission == 90:
-            outputer_txt(file_size_dis, result, time_stamp)
-            outputer_csv(file_size_dis, result, time_stamp)
+            output_txt(file_size_dis, result, time_stamp)
+            output_csv(file_size_dis, result, time_stamp)
             return
         ###########################
         return
     except:
-        print("Error code: 103")
+        print("[!] Error code: 103")
 
 def crc_core(file_name):
     try:
@@ -479,7 +519,7 @@ def crc_core(file_name):
             print(" ")
             return crc
     except:
-        print("Error code: 101")
+        print("[!] Error code: 101")
         return 0
 
 def file_size_filter(file_size):
@@ -494,7 +534,7 @@ def file_size_filter(file_size):
             file_size_class = 4
         return file_size_class
     except:
-        print("Error code: 102")
+        print("[!] Error code: 102")
 
 def rename(result):
     try:
@@ -514,9 +554,9 @@ def rename(result):
                 print("[!] Rename failed.")
         return
     except:
-        print("Error code: 110")
+        print("[!] Error code: 110")
 
-def outputer_txt(file_size_dis, result, time_stamp):
+def output_txt(file_size_dis, result, time_stamp):
     try:
         report_folder = ".\\crc_report"
         if not os.path.isdir(report_folder):
@@ -533,9 +573,9 @@ def outputer_txt(file_size_dis, result, time_stamp):
         writer.close()
         return
     except:
-        print("Error code: 106")
+        print("[!] Error code: 106")
 
-def outputer_csv(file_size_dis, result, time_stamp):
+def output_csv(file_size_dis, result, time_stamp):
     try:
         csv_list = list()
         csv_list.append(str('"%s"' % os.path.split(file_name_abs)[0])) # column1
@@ -572,7 +612,7 @@ def outputer_csv(file_size_dis, result, time_stamp):
         writer.close()
         return
     except:
-        print("Error code: 107")
+        print("[!] Error code: 107")
 
 #######################
 ### Start from Here ###
@@ -594,7 +634,7 @@ while True:
     ### Traversal Start ###
     #######################
     if scan_mission == 100:
-        file_filter_list_dir()
+        file_filter_cur()
     elif scan_mission == 200:
         file_filter_walk()
     for file_name in file_name_list:
@@ -621,9 +661,9 @@ while True:
     print("")
     print("menu: Return to menu.")
     print("")
-    user_input_end_ori = input("Type here >>> ")
-    user_input_end = user_input_end_ori.strip()
-    if user_input_end == "menu":
+    input_end_ori = input("Type here >>> ")
+    input_end = input_end_ori.strip()
+    if input_end == "menu":
         pass
     else:
         sys.exit()
